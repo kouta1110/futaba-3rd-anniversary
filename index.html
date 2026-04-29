@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>鉄板居酒屋 双葉 | 3周年記念</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Zen+Old+Mincho:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --dark: #1a1410;
+      --dark-mid: #251e16;
+      --dark-light: #32271c;
+      --cream: #f5efe6;
+      --cream-dark: #e8ddd0;
+      --red: #8b2020;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Shippori Mincho B1', 'Zen Old Mincho', serif;
+      background-color: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(26,20,16,0.95), rgba(26,20,16,0));
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+    .nav-logo img {
+      height: 48px;
+      width: 48px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 50%;
+      padding: 4px;
+      box-shadow: 0 0 12px rgba(201,168,76,0.3);
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream-dark);
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.18em;
+      font-family: 'Shippori Mincho B1', serif;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* 和風背景装飾 */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(139,32,32,0.06) 0%, transparent 50%),
+        linear-gradient(160deg, #1a1410 0%, #221a12 40%, #1e1711 100%);
+    }
+
+    /* 和柄：青海波風の飾り */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 0% 100%, transparent 60%, rgba(201,168,76,0.04) 61%, rgba(201,168,76,0.04) 63%, transparent 64%),
+        radial-gradient(circle at 10% 100%, transparent 65%, rgba(201,168,76,0.03) 66%, rgba(201,168,76,0.03) 68%, transparent 69%);
+      background-size: 80px 80px;
+      opacity: 0.6;
+    }
+
+    /* 縦線装飾 */
+    .hero-line-left,
+    .hero-line-right {
+      position: absolute;
+      top: 10%;
+      bottom: 10%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 30%, rgba(201,168,76,0.3) 70%, transparent);
+    }
+    .hero-line-left { left: 60px; }
+    .hero-line-right { right: 60px; }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .anniversary-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      padding: 6px 24px;
+      letter-spacing: 0.35em;
+      font-size: 0.78rem;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .anniversary-badge::before,
+    .anniversary-badge::after {
+      content: '◆';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.5rem;
+      color: var(--gold);
+    }
+    .anniversary-badge::before { left: -14px; }
+    .anniversary-badge::after  { right: -14px; }
+
+    .hero-subtitle {
+      font-family: 'Shippori Mincho B1', serif;
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.55em;
+      color: var(--cream-dark);
+      margin-bottom: 16px;
+    }
+
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .hero-logo-stamp {
+      background: #ffffff;
+      border-radius: 50%;
+      width: clamp(160px, 28vw, 220px);
+      height: clamp(160px, 28vw, 220px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 4px rgba(201,168,76,0.5),
+        0 0 0 8px rgba(201,168,76,0.15),
+        0 0 40px rgba(201,168,76,0.2);
+      padding: 12px;
+    }
+    .hero-logo-stamp img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .hero-title {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      line-height: 1.2;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .hero-title-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.85rem, 2.2vw, 1.15rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.55em;
+      color: rgba(245,239,230,0.55);
+      margin-bottom: 48px;
+    }
+
+    .hero-number {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 60px;
+    }
+    .hero-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(5rem, 18vw, 11rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1;
+      color: var(--gold);
+      text-shadow: 0 0 60px rgba(201,168,76,0.25);
+      letter-spacing: -0.02em;
+    }
+    .hero-num-label {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      color: var(--cream-dark);
+      align-self: flex-end;
+      padding-bottom: 18px;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .hero-divider-line {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .hero-divider-line:last-child {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .hero-divider-icon {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+    }
+
+    .hero-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0.35em;
+      color: rgba(245,239,230,0.45);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: fadeInUp 2s ease 1s both;
+    }
+    .scroll-text {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: rgba(201,168,76,0.5);
+    }
+    .scroll-bar {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    section {
+      padding: 100px 40px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Zen Old Mincho', serif;
+      text-align: center;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 60px;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      max-width: 100px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .section-divider::after {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .section-divider span {
+      color: var(--gold);
+      font-size: 0.6rem;
+    }
+
+    /* ===== MESSAGE SECTION ===== */
+    .message-section {
+      background: var(--dark-mid);
+      max-width: 100%;
+      padding: 100px 40px;
+    }
+    .message-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .message-card {
+      background: var(--dark-light);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 60px 56px;
+      position: relative;
+    }
+
+    /* 角飾り */
+    .message-card::before,
+    .message-card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .message-card::before {
+      top: -1px; left: -1px;
+      border-width: 2px 0 0 2px;
+    }
+    .message-card::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .message-card-inner {
+      position: relative;
+    }
+    .message-card-inner::before,
+    .message-card-inner::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .message-card-inner::before {
+      top: -61px; right: -57px;
+      border-width: 2px 2px 0 0;
+    }
+    .message-card-inner::after {
+      bottom: -61px; left: -57px;
+      border-width: 0 0 2px 2px;
+    }
+
+    .message-quote {
+      font-size: 3rem;
+      color: var(--gold);
+      line-height: 0.5;
+      margin-bottom: 24px;
+      opacity: 0.4;
+      font-family: Georgia, serif;
+    }
+
+    .message-text {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 1.02rem;
+      line-height: 2.4;
+      color: var(--cream-dark);
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      margin-bottom: 40px;
+    }
+
+    .message-signature {
+      text-align: right;
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding-top: 24px;
+    }
+    .message-signature p {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.25em;
+      color: var(--cream-dark);
+      margin-bottom: 4px;
+    }
+    .message-signature .sig-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.4em;
+    }
+
+    /* ===== MENU SECTION ===== */
+    .menu-section {
+      padding: 100px 40px;
+      max-width: 1020px;
+      margin: 0 auto;
+    }
+
+    /* 4セクション横並び */
+    .menu-sections {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 720px) {
+      .menu-sections { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 440px) {
+      .menu-sections { grid-template-columns: 1fr; }
+    }
+
+    .menu-section-col {
+      border: 1px solid rgba(201,168,76,0.18);
+      overflow: hidden;
+    }
+
+    .menu-section-head {
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.05));
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 14px 16px 12px;
+      text-align: center;
+    }
+    .menu-section-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+    }
+
+    .menu-dish {
+      padding: 16px 16px 14px;
+      border-bottom: 1px dashed rgba(201,168,76,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .menu-dish:last-child { border-bottom: none; }
+    .menu-dish:hover { background: rgba(201,168,76,0.04); }
+
+    .menu-dish-name {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--cream);
+      flex: 1;
+    }
+    .menu-dish-name.cs {
+      color: rgba(245,239,230,0.3);
+      font-style: italic;
+    }
+    .menu-dish-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .menu-dish-price.cs {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: rgba(201,168,76,0.35);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 1px 7px;
+    }
+
+    .menu-note {
+      text-align: center;
+      margin-top: 40px;
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.75rem;
+      color: rgba(245,239,230,0.3);
+      letter-spacing: 0.25em;
+    }
+
+    /* ===== TAB UI ===== */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 14px 32px;
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.3em;
+      color: rgba(245,239,230,0.4);
+      position: relative;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .tab-btn.active {
+      color: var(--gold);
+    }
+    .tab-btn.active::after {
+      transform: scaleX(1);
+    }
+    .tab-btn:hover {
+      color: var(--cream-dark);
+    }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ===== WINE LIST ===== */
+    .wine-intro {
+      text-align: center;
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.9rem;
+      line-height: 2.2;
+      color: rgba(245,239,230,0.45);
+      letter-spacing: 0.15em;
+      font-weight: 400;
+      margin-bottom: 48px;
+    }
+
+    .wine-section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .wine-section-title::before,
+    .wine-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,168,76,0.2);
+    }
+    .wine-section-title span {
+      font-size: 0.88rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      font-family: 'Shippori Mincho B1', serif;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .wine-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 0.88rem;
+    }
+    .wine-table thead tr {
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+    }
+    .wine-table th {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      font-style: italic;
+      letter-spacing: 0.25em;
+      color: rgba(201,168,76,0.6);
+      font-weight: 400;
+      padding: 0 12px 12px;
+      text-align: left;
+    }
+    .wine-table th:last-child,
+    .wine-table td:last-child {
+      text-align: right;
+    }
+    .wine-table tbody tr {
+      border-bottom: 1px dashed rgba(201,168,76,0.08);
+      transition: background 0.2s;
+    }
+    .wine-table tbody tr:hover {
+      background: rgba(201,168,76,0.04);
+    }
+    .wine-table td {
+      padding: 14px 12px;
+      color: var(--cream-dark);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      vertical-align: top;
+    }
+    .wine-name {
+      font-family: 'Shippori Mincho B1', serif;
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.05em;
+      color: var(--cream);
+    }
+    .wine-origin {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: rgba(245,239,230,0.4);
+      letter-spacing: 0.08em;
+      margin-top: 3px;
+    }
+    .wine-vintage {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: rgba(245,239,230,0.5);
+      white-space: nowrap;
+    }
+    .wine-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .wine-flag {
+      font-size: 1rem;
+      margin-right: 6px;
+    }
+    .wine-note-text {
+      text-align: center;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(245,239,230,0.25);
+      letter-spacing: 0.2em;
+      margin-top: 16px;
+    }
+
+
+    /* ===== LOTTERY / くじ引き ===== */
+    .lottery-section {
+      background: var(--dark);
+      padding: 100px 40px;
+      max-width: 100%;
+    }
+    .lottery-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* おみくじ筒 */
+    .lottery-tube-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .lottery-tube {
+      width: 90px;
+      height: 160px;
+      background: linear-gradient(160deg, #8b2020 0%, #6a1818 40%, #4a1010 100%);
+      border-radius: 45px 45px 12px 12px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.15s;
+      box-shadow:
+        inset -4px 0 12px rgba(0,0,0,0.4),
+        inset 4px 0 8px rgba(255,255,255,0.06),
+        0 8px 32px rgba(139,32,32,0.4);
+    }
+    .lottery-tube:hover { transform: translateY(-4px); }
+    .lottery-tube::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.05));
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+    .lottery-tube-label {
+      position: absolute;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: rgba(201,168,76,0.7);
+      writing-mode: vertical-rl;
+      white-space: nowrap;
+    }
+    /* くじ棒が飛び出るアニメ用 */
+    .lottery-stick {
+      position: absolute;
+      top: -20px; left: 50%;
+      transform: translateX(-50%) translateY(0);
+      width: 10px; height: 60px;
+      background: linear-gradient(to bottom, #f5e6c8, #d4b87a);
+      border-radius: 5px 5px 2px 2px;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+    .lottery-tube.shaking {
+      animation: tubeshake 0.6s ease;
+    }
+    .lottery-tube.shaking .lottery-stick {
+      animation: stickpop 0.6s ease forwards;
+    }
+    @keyframes tubeshake {
+      0%   { transform: translateY(-4px) rotate(0deg); }
+      15%  { transform: translateY(-6px) rotate(-8deg); }
+      30%  { transform: translateY(-4px) rotate(8deg); }
+      45%  { transform: translateY(-6px) rotate(-6deg); }
+      60%  { transform: translateY(-4px) rotate(4deg); }
+      80%  { transform: translateY(-4px) rotate(-2deg); }
+      100% { transform: translateY(-4px) rotate(0deg); }
+    }
+    @keyframes stickpop {
+      0%   { opacity: 0; transform: translateX(-50%) translateY(30px); }
+      40%  { opacity: 1; transform: translateX(-50%) translateY(-30px); }
+      70%  { opacity: 1; transform: translateX(-50%) translateY(-50px); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(-55px); }
+    }
+
+    /* 引くボタン */
+    .lottery-btn {
+      display: inline-block;
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.4em;
+      padding: 16px 48px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s, background 0.3s;
+      margin-bottom: 24px;
+    }
+    .lottery-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+      z-index: -1;
+    }
+    .lottery-btn:hover { color: var(--dark); }
+    .lottery-btn:hover::before { transform: scaleX(1); }
+    .lottery-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .lottery-note {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.75rem;
+      color: rgba(245,239,230,0.3);
+      letter-spacing: 0.2em;
+    }
+
+    /* 結果モーダル */
+    .lottery-modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,8,6,0.88);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .lottery-modal-bg.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lottery-modal {
+      background: var(--dark-light);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 56px 48px 48px;
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      transform: translateY(30px) scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .lottery-modal-bg.show .lottery-modal {
+      transform: translateY(0) scale(1);
+    }
+    /* 角飾り */
+    .lottery-modal::before, .lottery-modal::after {
+      content: '';
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--gold); border-style: solid;
+    }
+    .lottery-modal::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .lottery-modal::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    .modal-rank {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .modal-prize-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--cream);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .modal-prize-name.grand {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .modal-prize-desc {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.85rem;
+      line-height: 2;
+      color: rgba(245,239,230,0.55);
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+    }
+    .modal-close-btn {
+      background: none;
+      border: 1px solid rgba(201,168,76,0.4);
+      color: rgba(245,239,230,0.5);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      letter-spacing: 0.3em;
+      padding: 10px 32px;
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .modal-close-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .modal-emoji {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    /* 紙吹雪パーティクル */
+    .confetti-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 199;
+      overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute;
+      top: -20px;
+      width: 8px; height: 14px;
+      opacity: 0;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
+    }
+
+    /* 既に引いた場合 */
+    .lottery-already {
+      display: none;
+      background: var(--dark-mid);
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 40px;
+      margin-top: 32px;
+    }
+    .lottery-already.show { display: block; }
+    .already-result-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      letter-spacing: 0.35em;
+      color: rgba(201,168,76,0.5);
+      margin-bottom: 8px;
+    }
+    .already-result-prize {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+    }
+    .already-note {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.75rem;
+      color: rgba(245,239,230,0.3);
+      letter-spacing: 0.2em;
+      margin-top: 16px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 60px 40px 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .footer-logo img {
+      height: 70px;
+      width: 70px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 50%;
+      padding: 6px;
+      opacity: 0.85;
+    }
+    .footer-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      font-style: italic;
+      letter-spacing: 0.4em;
+      color: rgba(245,239,230,0.3);
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+    .footer-copy {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      font-style: italic;
+      letter-spacing: 0.2em;
+      color: rgba(245,239,230,0.2);
+      font-weight: 300;
+    }
+
+    /* ===== BOTTOM NAV ===== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      background: rgba(20, 15, 10, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 12px 32px;
+      flex-wrap: wrap;
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: rgba(245,239,230,0.55);
+      transition: color 0.3s;
+    }
+    .bottom-nav-item:hover { color: var(--gold); }
+
+    .bottom-nav-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+      flex-shrink: 0;
+      transition: opacity 0.3s;
+    }
+    .bottom-nav-item:hover .bottom-nav-icon { opacity: 1; }
+
+    .bottom-nav-text {
+      font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .bottom-nav-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(201,168,76,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ページ下部にナビ分の余白 */
+    body { padding-bottom: 52px; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollAnim {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50%       { opacity: 1;   transform: scaleY(1); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .message-card { padding: 36px 28px; }
+      .hero-line-left, .hero-line-right { display: none; }
+      .special-banner { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-logo">
+      <img src="futaba_logo.png" alt="双葉ロゴ" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="#message">ご挨拶</a></li>
+      <li><a href="#menu">メニュー</a></li>
+      <li><a href="#lottery">くじ引き</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-line-left"></div>
+    <div class="hero-line-right"></div>
+
+    <div class="hero-content">
+      <div class="anniversary-badge">ANNIVERSARY</div>
+
+      <p class="hero-subtitle">鉄板居酒屋</p>
+      <div class="hero-logo-wrap">
+        <div class="hero-logo-stamp">
+          <img src="futaba_logo.png" alt="双葉ロゴ" />
+        </div>
+      </div>
+      <h1 class="hero-title">双葉</h1>
+      <p class="hero-title-sub">FUTABA</p>
+
+      <div class="hero-number">
+        <span class="hero-num">3</span>
+        <span class="hero-num-label">周年</span>
+      </div>
+
+      <div class="hero-divider">
+        <div class="hero-divider-line"></div>
+        <span class="hero-divider-icon">◆</span>
+        <div class="hero-divider-line"></div>
+      </div>
+
+      <p class="hero-date">令和七年 ／ 2025</p>
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="scroll-text">SCROLL</span>
+      <div class="scroll-bar"></div>
+    </div>
+  </div>
+
+  <!-- MESSAGE SECTION -->
+  <div class="message-section" id="message">
+    <div class="message-inner">
+      <p class="section-label fade-in">Message</p>
+      <h2 class="section-title fade-in">オーナーより</h2>
+      <div class="section-divider fade-in"><span>◆</span></div>
+
+      <div class="message-card fade-in">
+        <div class="message-card-inner">
+          <div class="message-quote">"</div>
+          <p class="message-text">
+            皆様のおかげで、鉄板居酒屋 双葉は本日、おかげさまで3周年を迎えることができました。<br><br>
+            開業当初、鉄板の前に立ちながら「お客様に喜んでいただける一皿を」と心に誓ったあの日から、今日まで歩み続けてこられたのは、ひとえに足をお運びいただいた皆様の温かなご支援があったからに他なりません。<br><br>
+            笑顔あふれる食卓を共にできたこと、心より感謝申し上げます。これからも双葉は、旬の素材と真心を込めた料理で皆様をお迎えいたします。どうぞ末永くよろしくお願いいたします。
+          </p>
+          <div class="message-signature">
+            <p>鉄板居酒屋</p>
+            <p class="sig-name">双葉 店主一同</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU SECTION -->
+  <section class="menu-section" id="menu">
+    <p class="section-label fade-in">Our Menu</p>
+    <h2 class="section-title fade-in">お品書き</h2>
+    <div class="section-divider fade-in"><span>◆</span></div>
+
+    <!-- タブナビゲーション -->
+    <div class="tab-nav fade-in">
+      <button class="tab-btn active" onclick="switchTab(event,'tab-anniversary')">🎉 周年特別メニュー</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-wine')">🍷 ワインリスト</button>
+    </div>
+
+    <!-- TAB 1: 周年特別メニュー -->
+    <div class="tab-panel active" id="tab-anniversary">
+    <div class="menu-sections">
+
+      <!-- 双葉 -->
+      <div class="menu-section-col fade-in">
+        <div class="menu-section-head">
+          <p class="menu-section-name">双葉</p>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+      </div>
+
+      <!-- ブルームコーヒー -->
+      <div class="menu-section-col fade-in">
+        <div class="menu-section-head">
+          <p class="menu-section-name">ブルームコーヒー</p>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+      </div>
+
+      <!-- 荻野 -->
+      <div class="menu-section-col fade-in">
+        <div class="menu-section-head">
+          <p class="menu-section-name">荻野</p>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+      </div>
+
+      <!-- ときや -->
+      <div class="menu-section-col fade-in">
+        <div class="menu-section-head">
+          <p class="menu-section-name">ときや</p>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name cs">Coming Soon</span>
+          <span class="menu-dish-price cs">準備中</span>
+        </div>
+      </div>
+
+    </div>
+    <p class="menu-note">※ メニューは順次公開予定です。お楽しみに</p>
+    </div><!-- /tab-anniversary -->
+
+    <!-- TAB 2: ワインリスト -->
+    <div class="tab-panel" id="tab-wine">
+      <p class="wine-intro">
+        厳選した国内外のワインをご用意しております。<br>
+        お料理との相性をスタッフへお気軽にご相談ください。
+      </p>
+
+      <!-- 赤ワイン -->
+      <div class="wine-section-title"><span>🍷 赤ワイン　Red Wine</span></div>
+      <table class="wine-table">
+        <thead>
+          <tr>
+            <th>銘柄</th>
+            <th>ヴィンテージ</th>
+            <th>グラス</th>
+            <th>ボトル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇫🇷</span>シャトー・レオヴィル・バルトン</div>
+              <div class="wine-origin">Saint-Julien, Bordeaux / フランス</div>
+            </td>
+            <td class="wine-vintage">2018</td>
+            <td class="wine-price">¥1,800</td>
+            <td class="wine-price">¥9,800</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇮🇹</span>バルバレスコ リゼルヴァ</div>
+              <div class="wine-origin">Piedmont / イタリア</div>
+            </td>
+            <td class="wine-vintage">2017</td>
+            <td class="wine-price">¥1,600</td>
+            <td class="wine-price">¥8,800</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇪🇸</span>リオハ グラン・レゼルバ</div>
+              <div class="wine-origin">Rioja / スペイン</div>
+            </td>
+            <td class="wine-vintage">2016</td>
+            <td class="wine-price">¥1,200</td>
+            <td class="wine-price">¥6,600</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇯🇵</span>北海道ピノ・ノワール</div>
+              <div class="wine-origin">Hokkaido / 日本</div>
+            </td>
+            <td class="wine-vintage">2021</td>
+            <td class="wine-price">¥1,400</td>
+            <td class="wine-price">¥7,500</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 白ワイン -->
+      <div class="wine-section-title"><span>🥂 白ワイン　White Wine</span></div>
+      <table class="wine-table">
+        <thead>
+          <tr>
+            <th>銘柄</th>
+            <th>ヴィンテージ</th>
+            <th>グラス</th>
+            <th>ボトル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇫🇷</span>ムルソー プルミエ・クリュ</div>
+              <div class="wine-origin">Burgundy / フランス</div>
+            </td>
+            <td class="wine-vintage">2020</td>
+            <td class="wine-price">¥1,700</td>
+            <td class="wine-price">¥9,200</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇩🇪</span>リースリング シュペートレーゼ</div>
+              <div class="wine-origin">Mosel / ドイツ</div>
+            </td>
+            <td class="wine-vintage">2019</td>
+            <td class="wine-price">¥1,100</td>
+            <td class="wine-price">¥5,800</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇳🇿</span>マールボロ ソーヴィニヨン・ブラン</div>
+              <div class="wine-origin">Marlborough / ニュージーランド</div>
+            </td>
+            <td class="wine-vintage">2022</td>
+            <td class="wine-price">¥980</td>
+            <td class="wine-price">¥5,200</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇯🇵</span>山梨 甲州 樽熟成</div>
+              <div class="wine-origin">Yamanashi / 日本</div>
+            </td>
+            <td class="wine-vintage">2022</td>
+            <td class="wine-price">¥1,100</td>
+            <td class="wine-price">¥5,800</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- スパークリング -->
+      <div class="wine-section-title"><span>✨ スパークリング　Sparkling</span></div>
+      <table class="wine-table">
+        <thead>
+          <tr>
+            <th>銘柄</th>
+            <th>スタイル</th>
+            <th>グラス</th>
+            <th>ボトル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇫🇷</span>モエ・エ・シャンドン ブリュット</div>
+              <div class="wine-origin">Champagne / フランス</div>
+            </td>
+            <td class="wine-vintage">N.V.</td>
+            <td class="wine-price">¥1,800</td>
+            <td class="wine-price">¥12,000</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="wine-name"><span class="wine-flag">🇮🇹</span>プロセッコ ドック エクストラ・ドライ</div>
+              <div class="wine-origin">Veneto / イタリア</div>
+            </td>
+            <td class="wine-vintage">N.V.</td>
+            <td class="wine-price">¥900</td>
+            <td class="wine-price">¥4,800</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="wine-note-text">※ 表示価格は税込みです　／　ヴィンテージは入荷状況により変更になる場合があります</p>
+    </div><!-- /tab-wine -->
+
+  </section>
+
+  <!-- LOTTERY SECTION -->
+  <div class="lottery-section" id="lottery">
+    <div class="lottery-inner">
+      <p class="section-label fade-in">Anniversary Lottery</p>
+      <h2 class="section-title fade-in">3周年くじ引き</h2>
+      <div class="section-divider fade-in"><span>◆</span></div>
+
+      <p class="lottery-note fade-in" style="margin-bottom:32px; color:rgba(245,239,230,0.45); font-size:0.82rem; line-height:2.2; font-family:'Shippori Mincho B1',serif; letter-spacing:0.15em;">
+        3周年を記念して、ご来店のお客様へ<br>
+        特別なくじ引きをご用意いたしました。<br>
+        おひとり様1回限りとなっております。
+      </p>
+
+      <!-- 残り枚数カウンター -->
+      <div class="fade-in" style="margin-bottom:48px;">
+        <div style="display:inline-block; text-align:center; border:1px solid rgba(201,168,76,0.2); padding:20px 40px; background:var(--dark-mid);">
+          <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; letter-spacing:0.4em; color:rgba(201,168,76,0.5); margin-bottom:6px;">Remaining Tickets</p>
+          <p style="font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-style:italic; color:var(--gold); line-height:1; margin-bottom:4px;">
+            <span id="lotteryCounter">200</span>
+          </p>
+          <p style="font-family:'Shippori Mincho B1',serif; font-size:0.72rem; letter-spacing:0.3em; color:rgba(245,239,230,0.35);">枚 ／ 200枚</p>
+        </div>
+      </div>
+
+      <!-- おみくじ筒 -->
+      <div class="lottery-tube-wrap fade-in">
+        <div class="lottery-tube" id="lotteryTube">
+          <div class="lottery-stick" id="lotteryStick"></div>
+          <span class="lottery-tube-label">三周年記念くじ</span>
+        </div>
+      </div>
+
+      <!-- 引くボタン / 結果表示 -->
+      <div id="lotteryPlayArea">
+        <button class="lottery-btn" id="lotteryBtn" onclick="drawLottery()">
+          くじを引く
+        </button>
+        <br>
+        <span class="lottery-note">※ 同じ端末・ブラウザでは1回限りとなります</span>
+      </div>
+
+      <!-- 既に引いた場合 -->
+      <div class="lottery-already" id="lotteryAlready">
+        <p class="already-result-label">あなたの当選結果</p>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; letter-spacing:0.3em; color:rgba(201,168,76,0.4); margin-bottom:6px;" id="alreadyTicketNo"></p>
+        <p class="already-result-prize" id="alreadyPrizeName">―</p>
+        <p class="already-note">このくじはすでに引かれています。<br>またのご来店をお待ちしております。</p>
+      </div>
+
+      <!-- プール終了 -->
+      <div id="lotteryEnded" style="display:none; text-align:center; padding:40px; background:var(--dark-mid); border:1px solid rgba(201,168,76,0.15); margin-top:32px;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; letter-spacing:0.3em; color:var(--gold); margin-bottom:12px;">Lottery Ended</p>
+        <p style="font-family:'Zen Old Mincho',serif; font-size:1.1rem; letter-spacing:0.3em; color:var(--cream); margin-bottom:12px;">くじは終了しました</p>
+        <p style="font-family:'Shippori Mincho B1',serif; font-size:0.8rem; color:rgba(245,239,230,0.4); letter-spacing:0.15em; line-height:2;">200名様分のくじはすべて引かれました。<br>ご参加ありがとうございました。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- くじ結果モーダル -->
+  <div class="lottery-modal-bg" id="lotteryModal">
+    <div class="lottery-modal">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:0.7rem; font-style:italic; letter-spacing:0.4em; color:rgba(201,168,76,0.4); margin-bottom:12px;" id="modalTicketNo"></p>
+      <span class="modal-emoji" id="modalEmoji">🎉</span>
+      <p class="modal-rank" id="modalRank">一等</p>
+      <p class="modal-prize-name" id="modalPrizeName">―</p>
+      <p class="modal-prize-desc" id="modalPrizeDesc">―</p>
+      <button class="modal-close-btn" onclick="closeModal()">閉じる</button>
+    </div>
+  </div>
+
+  <!-- 紙吹雪コンテナ -->
+  <div class="confetti-wrap" id="confettiWrap"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="futaba_logo.png" alt="双葉ロゴ" />
+    </div>
+    <p class="footer-sub">TEPPAN IZAKAYA FUTABA</p>
+    <p class="footer-copy">© 2025 鉄板居酒屋 双葉 All Rights Reserved.</p>
+  </footer>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <!-- 住所 -->
+    <a class="bottom-nav-item" href="https://maps.google.com/?q=双葉+鉄板居酒屋" target="_blank" rel="noopener">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+      <span class="bottom-nav-text">〒000-0000　東京都○○区○○1-2-3</span>
+    </a>
+
+    <div class="bottom-nav-divider"></div>
+
+    <!-- Instagram -->
+    <a class="bottom-nav-item" href="https://www.instagram.com/futaba_teppan/" target="_blank" rel="noopener">
+      <svg class="bottom-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+      </svg>
+      <span class="bottom-nav-text">@futaba_teppan</span>
+    </a>
+  </nav>
+
+  <!-- SCROLL ANIMATION SCRIPT -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* ========================================
+       くじ引き機能 — 200枚プール制
+    ======================================== */
+    const POOL_KEY   = 'futaba_3rd_pool';   // 200枚のプール（全端末共通初期値）
+    const RESULT_KEY = 'futaba_3rd_result'; // この端末の抽選結果
+    const MAX_TICKETS = 200;
+
+    // 賞品定義
+    const prizes = [
+      { rank: '一等',   emoji: '🏆', name: '特選和牛コース\nご招待',            desc: '特選和牛フルコース（お二人様）を\n無料でご招待いたします。\nスタッフにこの画面をご提示ください。', grand: true  },
+      { rank: '二等',   emoji: '🍷', name: 'ボトルワイン\nプレゼント',           desc: 'ワインリストより1本\nお好みのボトルをプレゼントします。\nスタッフにこの画面をご提示ください。', grand: false },
+      { rank: '三等',   emoji: '🥣', name: 'ポキ丼\n1品無料',                   desc: '当店名物のポキ丼を1品サービス。\nスタッフにこの画面をご提示ください。', grand: false },
+      { rank: '四等',   emoji: '🍺', name: '生ビール\n1杯無料',                  desc: '生ビール（中）を1杯サービスします。\nスタッフにこの画面をご提示ください。', grand: false },
+      { rank: '五等',   emoji: '🎫', name: '10%割引\nクーポン',                  desc: 'お会計より10%割引いたします。\n（お一人様・1回限り有効）\nスタッフにこの画面をご提示ください。', grand: false },
+      { rank: 'ハズレ', emoji: '🌿', name: 'またのご来店を\nお待ちしております', desc: 'ご参加ありがとうございました。\n次回もぜひお気軽にお越しください。', grand: false },
+    ];
+
+    // 200枚の内訳（合計ちょうど200）
+    // 一等:1 / 二等:4 / 三等:15 / 四等:30 / 五等:50 / ハズレ:100
+    function buildPool() {
+      const counts = [1, 4, 15, 30, 50, 100];
+      let pool = [];
+      counts.forEach((n, i) => {
+        for (let j = 0; j < n; j++) pool.push(i); // index = prizes配列のindex
+      });
+      // Fisher-Yates シャッフル
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      return pool;
+    }
+
+    // プール状態を取得（なければ新規生成）
+    function getPoolState() {
+      const saved = localStorage.getItem(POOL_KEY);
+      if (saved) return JSON.parse(saved);
+      const pool = buildPool();
+      const state = { pool, drawn: 0 };
+      localStorage.setItem(POOL_KEY, JSON.stringify(state));
+      return state;
+    }
+
+    function savePoolState(state) {
+      localStorage.setItem(POOL_KEY, JSON.stringify(state));
+    }
+
+    // 残り枚数を表示更新
+    function updateCounter() {
+      const state = getPoolState();
+      const remaining = MAX_TICKETS - state.drawn;
+      const el = document.getElementById('lotteryCounter');
+      if (el) {
+        el.textContent = remaining > 0 ? remaining : 0;
+        if (remaining <= 0) {
+          document.getElementById('lotteryPlayArea').style.display = 'none';
+          document.getElementById('lotteryEnded').style.display = 'block';
+        }
+      }
+    }
+
+    // ページ読み込み時チェック
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCounter();
+      const myResult = localStorage.getItem(RESULT_KEY);
+      if (myResult) {
+        const data = JSON.parse(myResult);
+        showAlreadyResult(data.prizeName, data.ticketNo);
+      }
+      // プール終了チェック
+      const state = getPoolState();
+      if (state.drawn >= MAX_TICKETS) {
+        document.getElementById('lotteryPlayArea').style.display = 'none';
+        document.getElementById('lotteryEnded').style.display = 'block';
+      }
+    });
+
+    function showAlreadyResult(prizeName, ticketNo) {
+      document.getElementById('lotteryPlayArea').style.display = 'none';
+      const el = document.getElementById('lotteryAlready');
+      el.classList.add('show');
+      document.getElementById('alreadyPrizeName').textContent = prizeName.replace(/\n/g, ' ');
+      const noEl = document.getElementById('alreadyTicketNo');
+      if (noEl && ticketNo) noEl.textContent = ticketNo + '番';
+    }
+
+    function drawLottery() {
+      const state = getPoolState();
+
+      // プール終了チェック
+      if (state.drawn >= MAX_TICKETS) {
+        document.getElementById('lotteryPlayArea').style.display = 'none';
+        document.getElementById('lotteryEnded').style.display = 'block';
+        return;
+      }
+
+      // この端末で既に引いたかチェック
+      if (localStorage.getItem(RESULT_KEY)) {
+        const data = JSON.parse(localStorage.getItem(RESULT_KEY));
+        showAlreadyResult(data.prizeName, data.ticketNo);
+        return;
+      }
+
+      const btn = document.getElementById('lotteryBtn');
+      const tube = document.getElementById('lotteryTube');
+      btn.disabled = true;
+
+      tube.classList.add('shaking');
+      setTimeout(() => {
+        tube.classList.remove('shaking');
+
+        // プールから次の1枚を引く
+        const ticketNo = state.drawn + 1;
+        const prizeIndex = state.pool[state.drawn];
+        const prize = prizes[prizeIndex];
+
+        // プール消費
+        state.drawn += 1;
+        savePoolState(state);
+
+        // この端末の結果を保存
+        localStorage.setItem(RESULT_KEY, JSON.stringify({
+          prizeName: prize.name,
+          rank: prize.rank,
+          ticketNo,
+          timestamp: new Date().toISOString()
+        }));
+
+        updateCounter();
+        showModal(prize, ticketNo);
+
+        if (prize.grand || prize.rank === '二等' || prize.rank === '三等') {
+          launchConfetti();
+        }
+      }, 700);
+    }
+
+    function showModal(prize, ticketNo) {
+      document.getElementById('modalEmoji').textContent = prize.emoji;
+      document.getElementById('modalRank').textContent = prize.rank;
+      const nameEl = document.getElementById('modalPrizeName');
+      nameEl.textContent = prize.name;
+      nameEl.style.whiteSpace = 'pre-line';
+      nameEl.className = 'modal-prize-name' + (prize.grand ? ' grand' : '');
+      const descEl = document.getElementById('modalPrizeDesc');
+      descEl.textContent = prize.desc;
+      descEl.style.whiteSpace = 'pre-line';
+      const ticketEl = document.getElementById('modalTicketNo');
+      if (ticketEl) ticketEl.textContent = 'No.' + String(ticketNo).padStart(3, '0');
+      document.getElementById('lotteryModal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('lotteryModal').classList.remove('show');
+      const myResult = localStorage.getItem(RESULT_KEY);
+      if (myResult) {
+        const data = JSON.parse(myResult);
+        showAlreadyResult(data.prizeName, data.ticketNo);
+      }
+    }
+
+    function launchConfetti() {
+      const wrap = document.getElementById('confettiWrap');
+      wrap.innerHTML = '';
+      const colors = ['#c9a84c','#e8c97a','#8b2020','#c84040','#f5efe6','#4a7c59'];
+      for (let i = 0; i < 80; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.animationDuration = (1.2 + Math.random() * 2) + 's';
+        el.style.animationDelay = (Math.random() * 0.6) + 's';
+        el.style.transform = `rotate(${Math.random() * 360}deg)`;
+        wrap.appendChild(el);
+        setTimeout(() => el.remove(), 3500);
+      }
+    }
+
+    function switchTab(e, panelId) {
+      // ボタンのアクティブ切替
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+      // パネルの表示切替
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
