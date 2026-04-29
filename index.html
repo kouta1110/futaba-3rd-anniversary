@@ -29,7 +29,7 @@
     }
 
     /* ===== NAVIGATION ===== */
-    nav {
+    nav.top-nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
@@ -114,6 +114,7 @@
 
     .hero-content {
       position: relative;
+      z-index: 5;
       text-align: center;
       padding: 40px 20px;
     }
@@ -264,6 +265,7 @@
       align-items: center;
       gap: 8px;
       animation: fadeInUp 2s ease 1s both;
+      z-index: 10;
     }
     .scroll-text {
       font-family: 'Noto Sans JP', sans-serif;
@@ -277,6 +279,93 @@
       background: linear-gradient(to bottom, var(--gold), transparent);
       animation: scrollAnim 2s ease-in-out infinite;
     }
+
+    /* ===== KEY VISUAL SLIDER (ヒーロー背景) ===== */
+    .kv-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+      z-index: 0;
+    }
+    .kv-slide {
+      min-width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .kv-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: saturate(0.25) brightness(0.52);
+      transition: transform 7s ease;
+    }
+    .kv-slide.active img {
+      transform: scale(1.05);
+    }
+
+    /* 背景オーバーレイ */
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to bottom, rgba(26,20,16,0.35) 0%, transparent 25%, transparent 70%, rgba(26,20,16,0.5) 100%),
+        radial-gradient(ellipse at center, transparent 30%, rgba(26,20,16,0.3) 100%);
+    }
+
+    /* ドット */
+    .kv-dots {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    .kv-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.35);
+      border: 1px solid rgba(201,168,76,0.5);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .kv-dot.active {
+      background: var(--gold);
+      transform: scale(1.4);
+    }
+
+    /* 矢印 */
+    .kv-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(26,20,16,0.35);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+      backdrop-filter: blur(6px);
+    }
+    .kv-arrow:hover {
+      background: rgba(201,168,76,0.12);
+      border-color: rgba(201,168,76,0.6);
+    }
+    .kv-arrow.prev { left: 20px; }
+    .kv-arrow.next { right: 20px; }
+    .kv-arrow svg { width: 18px; height: 18px; }
 
     /* ===== SECTION COMMON ===== */
     section {
@@ -433,22 +522,20 @@
       margin: 0 auto;
     }
 
-    /* 4セクション横並び */
+    /* セクション縦並び */
     .menu-sections {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 720px) {
-      .menu-sections { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 440px) {
-      .menu-sections { grid-template-columns: 1fr; }
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
     .menu-section-col {
       border: 1px solid rgba(201,168,76,0.18);
+      border-bottom: none;
       overflow: hidden;
+    }
+    .menu-section-col:last-child {
+      border-bottom: 1px solid rgba(201,168,76,0.18);
     }
 
     .menu-section-head {
@@ -466,13 +553,14 @@
     }
 
     .menu-dish {
-      padding: 16px 16px 14px;
+      padding: 16px 24px 14px;
       border-bottom: 1px dashed rgba(201,168,76,0.1);
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 8px;
+      gap: 16px;
       transition: background 0.2s;
+      max-width: 560px;
     }
     .menu-dish:last-child { border-bottom: none; }
     .menu-dish:hover { background: rgba(201,168,76,0.04); }
@@ -992,6 +1080,7 @@
     /* ===== BOTTOM NAV ===== */
     .bottom-nav {
       position: fixed;
+      top: auto !important;
       bottom: 0; left: 0; right: 0;
       z-index: 90;
       background: rgba(20, 15, 10, 0.92);
@@ -1080,7 +1169,7 @@
 <body>
 
   <!-- NAVIGATION -->
-  <nav>
+  <nav class="top-nav">
     <div class="nav-logo">
       <img src="futaba_logo.png" alt="双葉ロゴ" />
     </div>
@@ -1091,36 +1180,54 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO + KEY VISUAL SLIDER -->
   <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-line-left"></div>
-    <div class="hero-line-right"></div>
 
+    <!-- 写真スライダー背景 -->
+    <div class="kv-track" id="kv-track">
+      <div class="kv-slide active">
+        <img src="photo1.jpg" alt="双葉 提灯" />
+      </div>
+      <div class="kv-slide">
+        <img src="photo2.jpg" alt="双葉 店内" />
+      </div>
+    </div>
+    <div class="hero-bg-overlay"></div>
+
+    <!-- テキスト -->
     <div class="hero-content">
       <div class="anniversary-badge">ANNIVERSARY</div>
-
       <p class="hero-subtitle">鉄板居酒屋</p>
-      <div class="hero-logo-wrap">
-        <div class="hero-logo-stamp">
-          <img src="futaba_logo.png" alt="双葉ロゴ" />
-        </div>
-      </div>
       <h1 class="hero-title">双葉</h1>
       <p class="hero-title-sub">FUTABA</p>
-
-      <div class="hero-number">
-        <span class="hero-num">3</span>
-        <span class="hero-num-label">周年</span>
-      </div>
-
       <div class="hero-divider">
         <div class="hero-divider-line"></div>
         <span class="hero-divider-icon">◆</span>
         <div class="hero-divider-line"></div>
       </div>
-
+      <div class="hero-number">
+        <span class="hero-num">3</span>
+        <span class="hero-num-label">周年</span>
+      </div>
       <p class="hero-date">令和七年 ／ 2025</p>
+    </div>
+
+    <!-- 矢印 -->
+    <button class="kv-arrow prev" onclick="kvMove(-1)" aria-label="前へ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <button class="kv-arrow next" onclick="kvMove(1)" aria-label="次へ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+
+    <!-- ドット -->
+    <div class="kv-dots" id="kv-dots">
+      <div class="kv-dot active" onclick="kvGoTo(0)"></div>
+      <div class="kv-dot" onclick="kvGoTo(1)"></div>
     </div>
 
     <div class="scroll-indicator">
@@ -1488,6 +1595,27 @@
 
   <!-- SCROLL ANIMATION SCRIPT -->
   <script>
+    /* ===== KEY VISUAL SLIDER ===== */
+    let kvCurrent = 0;
+    const kvSlides = document.querySelectorAll('.kv-slide');
+    const kvDots   = document.querySelectorAll('.kv-dot');
+    const kvTrack  = document.getElementById('kv-track');
+
+    function kvGoTo(index) {
+      kvSlides[kvCurrent].classList.remove('active');
+      kvDots[kvCurrent].classList.remove('active');
+      kvCurrent = (index + kvSlides.length) % kvSlides.length;
+      kvSlides[kvCurrent].classList.add('active');
+      kvDots[kvCurrent].classList.add('active');
+      kvTrack.style.transform = `translateX(-${kvCurrent * 100}%)`;
+    }
+
+    function kvMove(dir) { kvGoTo(kvCurrent + dir); }
+
+    // 自動スライド（5秒）
+    setInterval(() => kvMove(1), 5000);
+
+    /* ===== INTERSECTION OBSERVER ===== */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
