@@ -9,23 +9,53 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --dark: #1a1410;
-      --dark-mid: #251e16;
-      --dark-light: #32271c;
-      --cream: #f5efe6;
-      --cream-dark: #e8ddd0;
-      --red: #8b2020;
+      --gold: #7B2D3A;
+      --gold-light: #a84858;
+      --dark: #ffffff;
+      --dark-mid: #f5f5f5;
+      --dark-light: #ebebeb;
+      --cream: #1a1410;
+      --cream-dark: #3d2f24;
+      --red: #7B2D3A;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Shippori Mincho B1', 'Zen Old Mincho', serif;
-      background-color: var(--dark);
+      background-color: #ffffff;
       color: var(--cream);
       overflow-x: hidden;
+    }
+
+    /* ===== 背景画像：下部 ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      z-index: -1;
+      background-image: url('bg.jpg');
+      background-size: cover;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+      opacity: 0.55;
+    }
+
+    /* ===== 背景画像：中部セパレーター ===== */
+    .bg2-separator {
+      width: 100%;
+      height: 60vw;
+      max-height: 520px;
+      min-height: 260px;
+      background-image: url('bg2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.7;
+      pointer-events: none;
     }
 
     /* ===== NAVIGATION ===== */
@@ -37,7 +67,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 18px 48px;
-      background: linear-gradient(to bottom, rgba(26,20,16,0.95), rgba(26,20,16,0));
+      background: linear-gradient(to bottom, rgba(255,255,255,0.97), rgba(255,255,255,0));
     }
     .nav-logo {
       display: flex;
@@ -50,7 +80,7 @@
       background: #fff;
       border-radius: 50%;
       padding: 4px;
-      box-shadow: 0 0 12px rgba(201,168,76,0.3);
+      box-shadow: 0 0 12px rgba(123,45,58,0.3);
     }
     .nav-links {
       display: flex;
@@ -73,186 +103,37 @@
       position: relative;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      background: transparent;
       overflow: hidden;
     }
-
-    /* 和風背景装飾 */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(139,32,32,0.06) 0%, transparent 50%),
-        linear-gradient(160deg, #1a1410 0%, #221a12 40%, #1e1711 100%);
-    }
-
-    /* 和柄：青海波風の飾り */
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 0% 100%, transparent 60%, rgba(201,168,76,0.04) 61%, rgba(201,168,76,0.04) 63%, transparent 64%),
-        radial-gradient(circle at 10% 100%, transparent 65%, rgba(201,168,76,0.03) 66%, rgba(201,168,76,0.03) 68%, transparent 69%);
-      background-size: 80px 80px;
-      opacity: 0.6;
-    }
-
-    /* 縦線装飾 */
-    .hero-line-left,
-    .hero-line-right {
-      position: absolute;
-      top: 10%;
-      bottom: 10%;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 30%, rgba(201,168,76,0.3) 70%, transparent);
-    }
-    .hero-line-left { left: 60px; }
-    .hero-line-right { right: 60px; }
 
     .hero-content {
       position: relative;
       z-index: 5;
       text-align: center;
-      padding: 40px 20px;
+      padding: 120px 20px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .anniversary-badge {
-      display: inline-block;
-      border: 1px solid var(--gold);
-      padding: 6px 24px;
-      letter-spacing: 0.35em;
-      font-size: 0.78rem;
-      color: var(--gold);
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-style: italic;
-      margin-bottom: 32px;
-      position: relative;
+    .hero-kv {
+      width: min(500px, 90vw);
+      height: auto;
+      display: block;
+      animation: fadeInUp 1.2s ease both;
     }
-    .anniversary-badge::before,
-    .anniversary-badge::after {
-      content: '◆';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.5rem;
-      color: var(--gold);
-    }
-    .anniversary-badge::before { left: -14px; }
-    .anniversary-badge::after  { right: -14px; }
 
-    .hero-subtitle {
+    .hero-store-name {
       font-family: 'Shippori Mincho B1', serif;
+      font-size: 0.72rem;
       font-weight: 400;
-      font-size: 1rem;
-      letter-spacing: 0.55em;
-      color: var(--cream-dark);
-      margin-bottom: 16px;
-    }
-
-    .hero-logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 40px;
-    }
-    .hero-logo-stamp {
-      background: #ffffff;
-      border-radius: 50%;
-      width: clamp(160px, 28vw, 220px);
-      height: clamp(160px, 28vw, 220px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 0 0 4px rgba(201,168,76,0.5),
-        0 0 0 8px rgba(201,168,76,0.15),
-        0 0 40px rgba(201,168,76,0.2);
-      padding: 12px;
-    }
-    .hero-logo-stamp img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .hero-title {
-      font-family: 'Zen Old Mincho', serif;
-      font-size: clamp(1.6rem, 4.5vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: 0.5em;
-      line-height: 1.2;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-
-    .hero-title-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.85rem, 2.2vw, 1.15rem);
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: 0.55em;
-      color: rgba(245,239,230,0.55);
-      margin-bottom: 48px;
-    }
-
-    .hero-number {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 60px;
-    }
-    .hero-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(5rem, 18vw, 11rem);
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1;
-      color: var(--gold);
-      text-shadow: 0 0 60px rgba(201,168,76,0.25);
-      letter-spacing: -0.02em;
-    }
-    .hero-num-label {
-      font-family: 'Zen Old Mincho', serif;
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 400;
-      letter-spacing: 0.35em;
-      color: var(--cream-dark);
-      align-self: flex-end;
-      padding-bottom: 18px;
-    }
-
-    .hero-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .hero-divider-line {
-      width: 80px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold));
-    }
-    .hero-divider-line:last-child {
-      background: linear-gradient(to left, transparent, var(--gold));
-    }
-    .hero-divider-icon {
-      color: var(--gold);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-    }
-
-    .hero-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: 0.95rem;
-      letter-spacing: 0.35em;
-      color: rgba(245,239,230,0.45);
+      letter-spacing: 0.6em;
+      color: rgba(26,20,16,0.3);
+      margin-top: 48px;
     }
 
     .scroll-indicator {
@@ -271,12 +152,12 @@
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 0.65rem;
       letter-spacing: 0.3em;
-      color: rgba(201,168,76,0.5);
+      color: rgba(26,20,16,0.3);
     }
     .scroll-bar {
       width: 1px;
       height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      background: linear-gradient(to bottom, rgba(26,20,16,0.3), transparent);
       animation: scrollAnim 2s ease-in-out infinite;
     }
 
@@ -312,8 +193,8 @@
       inset: 0;
       z-index: 1;
       background:
-        linear-gradient(to bottom, rgba(26,20,16,0.35) 0%, transparent 25%, transparent 70%, rgba(26,20,16,0.5) 100%),
-        radial-gradient(ellipse at center, transparent 30%, rgba(26,20,16,0.3) 100%);
+        linear-gradient(to bottom, rgba(10,5,5,0.3) 0%, transparent 25%, transparent 65%, rgba(10,5,5,0.5) 100%),
+        radial-gradient(ellipse at center, transparent 20%, rgba(10,5,5,0.25) 100%);
     }
 
     /* ドット */
@@ -330,8 +211,8 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: rgba(201,168,76,0.35);
-      border: 1px solid rgba(201,168,76,0.5);
+      background: rgba(123,45,58,0.35);
+      border: 1px solid rgba(123,45,58,0.5);
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
     }
@@ -347,7 +228,7 @@
       transform: translateY(-50%);
       z-index: 10;
       background: rgba(26,20,16,0.35);
-      border: 1px solid rgba(201,168,76,0.25);
+      border: 1px solid rgba(123,45,58,0.25);
       color: var(--gold);
       width: 44px;
       height: 44px;
@@ -360,8 +241,8 @@
       backdrop-filter: blur(6px);
     }
     .kv-arrow:hover {
-      background: rgba(201,168,76,0.12);
-      border-color: rgba(201,168,76,0.6);
+      background: rgba(123,45,58,0.12);
+      border-color: rgba(123,45,58,0.6);
     }
     .kv-arrow.prev { left: 20px; }
     .kv-arrow.next { right: 20px; }
@@ -420,7 +301,7 @@
 
     /* ===== MESSAGE SECTION ===== */
     .message-section {
-      background: var(--dark-mid);
+      background: rgba(255,255,255,0.75);
       max-width: 100%;
       padding: 100px 40px;
     }
@@ -430,8 +311,8 @@
     }
 
     .message-card {
-      background: var(--dark-light);
-      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(123,45,58,0.2);
       padding: 60px 56px;
       position: relative;
     }
@@ -497,7 +378,7 @@
 
     .message-signature {
       text-align: right;
-      border-top: 1px solid rgba(201,168,76,0.2);
+      border-top: 1px solid rgba(123,45,58,0.2);
       padding-top: 24px;
     }
     .message-signature p {
@@ -530,17 +411,17 @@
     }
 
     .menu-section-col {
-      border: 1px solid rgba(201,168,76,0.18);
+      border: 1px solid rgba(123,45,58,0.18);
       border-bottom: none;
       overflow: hidden;
     }
     .menu-section-col:last-child {
-      border-bottom: 1px solid rgba(201,168,76,0.18);
+      border-bottom: 1px solid rgba(123,45,58,0.18);
     }
 
     .menu-section-head {
-      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.05));
-      border-bottom: 1px solid rgba(201,168,76,0.2);
+      background: linear-gradient(135deg, rgba(123,45,58,0.12), rgba(123,45,58,0.05));
+      border-bottom: 1px solid rgba(123,45,58,0.2);
       padding: 14px 16px 12px;
       text-align: center;
     }
@@ -554,7 +435,7 @@
 
     .menu-dish {
       padding: 16px 24px 14px;
-      border-bottom: 1px dashed rgba(201,168,76,0.1);
+      border-bottom: 1px dashed rgba(123,45,58,0.1);
       display: flex;
       justify-content: space-between;
       align-items: baseline;
@@ -563,7 +444,7 @@
       max-width: 560px;
     }
     .menu-dish:last-child { border-bottom: none; }
-    .menu-dish:hover { background: rgba(201,168,76,0.04); }
+    .menu-dish:hover { background: rgba(123,45,58,0.04); }
 
     .menu-dish-name {
       font-family: 'Shippori Mincho B1', serif;
@@ -574,7 +455,7 @@
       flex: 1;
     }
     .menu-dish-name.cs {
-      color: rgba(245,239,230,0.3);
+      color: rgba(26,20,16,0.3);
       font-style: italic;
     }
     .menu-dish-price {
@@ -588,8 +469,8 @@
     .menu-dish-price.cs {
       font-size: 0.68rem;
       letter-spacing: 0.2em;
-      color: rgba(201,168,76,0.35);
-      border: 1px solid rgba(201,168,76,0.2);
+      color: rgba(123,45,58,0.35);
+      border: 1px solid rgba(123,45,58,0.2);
       padding: 1px 7px;
     }
 
@@ -598,7 +479,7 @@
       margin-top: 40px;
       font-family: 'Shippori Mincho B1', serif;
       font-size: 0.75rem;
-      color: rgba(245,239,230,0.3);
+      color: rgba(26,20,16,0.3);
       letter-spacing: 0.25em;
     }
 
@@ -607,7 +488,7 @@
       display: flex;
       gap: 0;
       margin-bottom: 48px;
-      border-bottom: 1px solid rgba(201,168,76,0.2);
+      border-bottom: 1px solid rgba(123,45,58,0.2);
     }
     .tab-btn {
       background: none;
@@ -617,7 +498,7 @@
       font-family: 'Zen Old Mincho', serif;
       font-size: 0.95rem;
       letter-spacing: 0.3em;
-      color: rgba(245,239,230,0.4);
+      color: rgba(26,20,16,0.4);
       position: relative;
       transition: color 0.3s;
       white-space: nowrap;
@@ -654,7 +535,7 @@
       font-family: 'Shippori Mincho B1', serif;
       font-size: 0.9rem;
       line-height: 2.2;
-      color: rgba(245,239,230,0.45);
+      color: rgba(26,20,16,0.55);
       letter-spacing: 0.15em;
       font-weight: 400;
       margin-bottom: 48px;
@@ -671,7 +552,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(201,168,76,0.2);
+      background: rgba(123,45,58,0.2);
     }
     .wine-section-title span {
       font-size: 0.88rem;
@@ -689,14 +570,14 @@
       font-size: 0.88rem;
     }
     .wine-table thead tr {
-      border-bottom: 1px solid rgba(201,168,76,0.25);
+      border-bottom: 1px solid rgba(123,45,58,0.25);
     }
     .wine-table th {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.75rem;
       font-style: italic;
       letter-spacing: 0.25em;
-      color: rgba(201,168,76,0.6);
+      color: rgba(123,45,58,0.6);
       font-weight: 400;
       padding: 0 12px 12px;
       text-align: left;
@@ -706,11 +587,11 @@
       text-align: right;
     }
     .wine-table tbody tr {
-      border-bottom: 1px dashed rgba(201,168,76,0.08);
+      border-bottom: 1px dashed rgba(123,45,58,0.08);
       transition: background 0.2s;
     }
     .wine-table tbody tr:hover {
-      background: rgba(201,168,76,0.04);
+      background: rgba(123,45,58,0.04);
     }
     .wine-table td {
       padding: 14px 12px;
@@ -730,7 +611,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-size: 0.78rem;
-      color: rgba(245,239,230,0.4);
+      color: rgba(26,20,16,0.4);
       letter-spacing: 0.08em;
       margin-top: 3px;
     }
@@ -738,7 +619,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.9rem;
       font-style: italic;
-      color: rgba(245,239,230,0.5);
+      color: rgba(26,20,16,0.5);
       white-space: nowrap;
     }
     .wine-price {
@@ -757,7 +638,7 @@
       text-align: center;
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 0.72rem;
-      color: rgba(245,239,230,0.25);
+      color: rgba(26,20,16,0.25);
       letter-spacing: 0.2em;
       margin-top: 16px;
     }
@@ -765,12 +646,12 @@
 
     /* ===== LOTTERY / くじ引き ===== */
     .lottery-section {
-      background: var(--dark);
-      padding: 100px 40px;
+      background: transparent;
+      padding: 60px 40px;
       max-width: 100%;
     }
     .lottery-inner {
-      max-width: 640px;
+      max-width: 480px;
       margin: 0 auto;
       text-align: center;
     }
@@ -780,11 +661,11 @@
       position: relative;
       display: flex;
       justify-content: center;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
     .lottery-tube {
-      width: 90px;
-      height: 160px;
+      width: 70px;
+      height: 124px;
       background: linear-gradient(160deg, #8b2020 0%, #6a1818 40%, #4a1010 100%);
       border-radius: 45px 45px 12px 12px;
       position: relative;
@@ -799,12 +680,12 @@
     .lottery-tube::before {
       content: '';
       position: absolute;
-      top: 12px; left: 50%;
+      top: 10px; left: 50%;
       transform: translateX(-50%);
-      width: 54px; height: 54px;
+      width: 42px; height: 42px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.05));
-      border: 1px solid rgba(201,168,76,0.3);
+      background: linear-gradient(135deg, rgba(123,45,58,0.25), rgba(123,45,58,0.05));
+      border: 1px solid rgba(123,45,58,0.3);
     }
     .lottery-tube-label {
       position: absolute;
@@ -813,7 +694,7 @@
       font-family: 'Zen Old Mincho', serif;
       font-size: 0.7rem;
       letter-spacing: 0.4em;
-      color: rgba(201,168,76,0.7);
+      color: rgba(123,45,58,0.7);
       writing-mode: vertical-rl;
       white-space: nowrap;
     }
@@ -887,7 +768,7 @@
     .lottery-note {
       font-family: 'Shippori Mincho B1', serif;
       font-size: 0.75rem;
-      color: rgba(245,239,230,0.3);
+      color: rgba(26,20,16,0.3);
       letter-spacing: 0.2em;
     }
 
@@ -895,7 +776,7 @@
     .lottery-modal-bg {
       position: fixed;
       inset: 0;
-      background: rgba(10,8,6,0.88);
+      background: rgba(10,5,5,0.75);
       z-index: 200;
       display: flex;
       align-items: center;
@@ -910,7 +791,7 @@
     }
     .lottery-modal {
       background: var(--dark-light);
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(123,45,58,0.3);
       padding: 56px 48px 48px;
       text-align: center;
       max-width: 420px;
@@ -959,14 +840,14 @@
       font-family: 'Shippori Mincho B1', serif;
       font-size: 0.85rem;
       line-height: 2;
-      color: rgba(245,239,230,0.55);
+      color: rgba(26,20,16,0.65);
       letter-spacing: 0.1em;
       margin-bottom: 32px;
     }
     .modal-close-btn {
       background: none;
-      border: 1px solid rgba(201,168,76,0.4);
-      color: rgba(245,239,230,0.5);
+      border: 1px solid rgba(123,45,58,0.4);
+      color: rgba(26,20,16,0.5);
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.8rem;
       font-style: italic;
@@ -1009,7 +890,7 @@
     .lottery-already {
       display: none;
       background: var(--dark-mid);
-      border: 1px solid rgba(201,168,76,0.15);
+      border: 1px solid rgba(123,45,58,0.15);
       padding: 40px;
       margin-top: 32px;
     }
@@ -1019,7 +900,7 @@
       font-size: 0.78rem;
       font-style: italic;
       letter-spacing: 0.35em;
-      color: rgba(201,168,76,0.5);
+      color: rgba(123,45,58,0.5);
       margin-bottom: 8px;
     }
     .already-result-prize {
@@ -1032,15 +913,15 @@
     .already-note {
       font-family: 'Shippori Mincho B1', serif;
       font-size: 0.75rem;
-      color: rgba(245,239,230,0.3);
+      color: rgba(26,20,16,0.3);
       letter-spacing: 0.2em;
       margin-top: 16px;
     }
 
     /* ===== FOOTER ===== */
     footer {
-      background: var(--dark);
-      border-top: 1px solid rgba(201,168,76,0.15);
+      background: rgba(255,255,255,0.7);
+      border-top: 1px solid rgba(123,45,58,0.15);
       padding: 60px 40px 40px;
       text-align: center;
     }
@@ -1064,7 +945,7 @@
       font-size: 0.82rem;
       font-style: italic;
       letter-spacing: 0.4em;
-      color: rgba(245,239,230,0.3);
+      color: rgba(26,20,16,0.4);
       font-weight: 300;
       margin-bottom: 32px;
     }
@@ -1073,7 +954,7 @@
       font-size: 0.75rem;
       font-style: italic;
       letter-spacing: 0.2em;
-      color: rgba(245,239,230,0.2);
+      color: rgba(26,20,16,0.3);
       font-weight: 300;
     }
 
@@ -1083,10 +964,10 @@
       top: auto !important;
       bottom: 0; left: 0; right: 0;
       z-index: 90;
-      background: rgba(20, 15, 10, 0.92);
+      background: rgba(250, 248, 244, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(201,168,76,0.2);
+      border-top: 1px solid rgba(123,45,58,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1100,7 +981,7 @@
       align-items: center;
       gap: 9px;
       text-decoration: none;
-      color: rgba(245,239,230,0.55);
+      color: rgba(26,20,16,0.6);
       transition: color 0.3s;
     }
     .bottom-nav-item:hover { color: var(--gold); }
@@ -1124,7 +1005,7 @@
     .bottom-nav-divider {
       width: 1px;
       height: 16px;
-      background: rgba(201,168,76,0.2);
+      background: rgba(123,45,58,0.2);
       flex-shrink: 0;
     }
 
@@ -1180,56 +1061,12 @@
     </ul>
   </nav>
 
-  <!-- HERO + KEY VISUAL SLIDER -->
+  <!-- HERO -->
   <div class="hero">
-
-    <!-- 写真スライダー背景 -->
-    <div class="kv-track" id="kv-track">
-      <div class="kv-slide active">
-        <img src="photo1.jpg" alt="双葉 提灯" />
-      </div>
-      <div class="kv-slide">
-        <img src="photo2.jpg" alt="双葉 店内" />
-      </div>
-    </div>
-    <div class="hero-bg-overlay"></div>
-
-    <!-- テキスト -->
     <div class="hero-content">
-      <div class="anniversary-badge">ANNIVERSARY</div>
-      <p class="hero-subtitle">鉄板居酒屋</p>
-      <h1 class="hero-title">双葉</h1>
-      <p class="hero-title-sub">FUTABA</p>
-      <div class="hero-divider">
-        <div class="hero-divider-line"></div>
-        <span class="hero-divider-icon">◆</span>
-        <div class="hero-divider-line"></div>
-      </div>
-      <div class="hero-number">
-        <span class="hero-num">3</span>
-        <span class="hero-num-label">周年</span>
-      </div>
-      <p class="hero-date">令和七年 ／ 2025</p>
+      <img src="hero-logo.jpg" alt="3周年ロゴ" class="hero-kv" />
+      <p class="hero-store-name">鉄板居酒屋　双葉</p>
     </div>
-
-    <!-- 矢印 -->
-    <button class="kv-arrow prev" onclick="kvMove(-1)" aria-label="前へ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>
-    <button class="kv-arrow next" onclick="kvMove(1)" aria-label="次へ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </button>
-
-    <!-- ドット -->
-    <div class="kv-dots" id="kv-dots">
-      <div class="kv-dot active" onclick="kvGoTo(0)"></div>
-      <div class="kv-dot" onclick="kvGoTo(1)"></div>
-    </div>
-
     <div class="scroll-indicator">
       <span class="scroll-text">SCROLL</span>
       <div class="scroll-bar"></div>
@@ -1259,6 +1096,9 @@
       </div>
     </div>
   </div>
+
+  <!-- BG2 SEPARATOR -->
+  <div class="bg2-separator"></div>
 
   <!-- MENU SECTION -->
   <section class="menu-section" id="menu">
@@ -1494,7 +1334,7 @@
       <h2 class="section-title fade-in">3周年くじ引き</h2>
       <div class="section-divider fade-in"><span>◆</span></div>
 
-      <p class="lottery-note fade-in" style="margin-bottom:32px; color:rgba(245,239,230,0.45); font-size:0.82rem; line-height:2.2; font-family:'Shippori Mincho B1',serif; letter-spacing:0.15em;">
+      <p class="lottery-note fade-in" style="margin-bottom:32px; color:rgba(26,20,16,0.45); font-size:0.82rem; line-height:2.2; font-family:'Shippori Mincho B1',serif; letter-spacing:0.15em;">
         3周年を記念して、ご来店のお客様へ<br>
         特別なくじ引きをご用意いたしました。<br>
         おひとり様1回限りとなっております。
@@ -1502,12 +1342,12 @@
 
       <!-- 残り枚数カウンター -->
       <div class="fade-in" style="margin-bottom:48px;">
-        <div style="display:inline-block; text-align:center; border:1px solid rgba(201,168,76,0.2); padding:20px 40px; background:var(--dark-mid);">
-          <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; letter-spacing:0.4em; color:rgba(201,168,76,0.5); margin-bottom:6px;">Remaining Tickets</p>
+        <div style="display:inline-block; text-align:center; border:1px solid rgba(123,45,58,0.2); padding:20px 40px; background:var(--dark-mid);">
+          <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; letter-spacing:0.4em; color:rgba(123,45,58,0.5); margin-bottom:6px;">Remaining Tickets</p>
           <p style="font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-style:italic; color:var(--gold); line-height:1; margin-bottom:4px;">
             <span id="lotteryCounter">200</span>
           </p>
-          <p style="font-family:'Shippori Mincho B1',serif; font-size:0.72rem; letter-spacing:0.3em; color:rgba(245,239,230,0.35);">枚 ／ 200枚</p>
+          <p style="font-family:'Shippori Mincho B1',serif; font-size:0.72rem; letter-spacing:0.3em; color:rgba(26,20,16,0.35);">枚 ／ 200枚</p>
         </div>
       </div>
 
@@ -1531,16 +1371,16 @@
       <!-- 既に引いた場合 -->
       <div class="lottery-already" id="lotteryAlready">
         <p class="already-result-label">あなたの当選結果</p>
-        <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; letter-spacing:0.3em; color:rgba(201,168,76,0.4); margin-bottom:6px;" id="alreadyTicketNo"></p>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; font-style:italic; letter-spacing:0.3em; color:rgba(123,45,58,0.4); margin-bottom:6px;" id="alreadyTicketNo"></p>
         <p class="already-result-prize" id="alreadyPrizeName">―</p>
         <p class="already-note">このくじはすでに引かれています。<br>またのご来店をお待ちしております。</p>
       </div>
 
       <!-- プール終了 -->
-      <div id="lotteryEnded" style="display:none; text-align:center; padding:40px; background:var(--dark-mid); border:1px solid rgba(201,168,76,0.15); margin-top:32px;">
+      <div id="lotteryEnded" style="display:none; text-align:center; padding:40px; background:var(--dark-mid); border:1px solid rgba(123,45,58,0.15); margin-top:32px;">
         <p style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-style:italic; letter-spacing:0.3em; color:var(--gold); margin-bottom:12px;">Lottery Ended</p>
         <p style="font-family:'Zen Old Mincho',serif; font-size:1.1rem; letter-spacing:0.3em; color:var(--cream); margin-bottom:12px;">くじは終了しました</p>
-        <p style="font-family:'Shippori Mincho B1',serif; font-size:0.8rem; color:rgba(245,239,230,0.4); letter-spacing:0.15em; line-height:2;">200名様分のくじはすべて引かれました。<br>ご参加ありがとうございました。</p>
+        <p style="font-family:'Shippori Mincho B1',serif; font-size:0.8rem; color:rgba(26,20,16,0.4); letter-spacing:0.15em; line-height:2;">200名様分のくじはすべて引かれました。<br>ご参加ありがとうございました。</p>
       </div>
     </div>
   </div>
@@ -1548,7 +1388,7 @@
   <!-- くじ結果モーダル -->
   <div class="lottery-modal-bg" id="lotteryModal">
     <div class="lottery-modal">
-      <p style="font-family:'Cormorant Garamond',serif; font-size:0.7rem; font-style:italic; letter-spacing:0.4em; color:rgba(201,168,76,0.4); margin-bottom:12px;" id="modalTicketNo"></p>
+      <p style="font-family:'Cormorant Garamond',serif; font-size:0.7rem; font-style:italic; letter-spacing:0.4em; color:rgba(123,45,58,0.4); margin-bottom:12px;" id="modalTicketNo"></p>
       <span class="modal-emoji" id="modalEmoji">🎉</span>
       <p class="modal-rank" id="modalRank">一等</p>
       <p class="modal-prize-name" id="modalPrizeName">―</p>
