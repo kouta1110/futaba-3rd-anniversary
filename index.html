@@ -137,10 +137,14 @@
     }
 
     @media (max-width: 700px) {
-      nav.top-nav { padding: 12px 16px; }
-      .nav-links { gap: 16px; }
-      .nav-ext { gap: 12px; }
-      .nav-links a, .nav-ext a, .nav-reserve > span { font-size: 0.72rem; letter-spacing: 0.08em; }
+      nav.top-nav { padding: 10px 14px; }
+      .nav-links { gap: 14px; }
+      .nav-ext { gap: 10px; }
+      .nav-links a, .nav-ext a, .nav-reserve > span { font-size: 0.68rem; letter-spacing: 0.05em; }
+      /* モバイルではタップでドロップダウン表示（hoverを無効化） */
+      .nav-reserve:hover .nav-reserve-drop { display: none; }
+      .nav-reserve-drop.open { display: flex !important; }
+      .nav-reserve-drop { right: 0; left: auto; }
     }
 
     /* ===== HERO ===== */
@@ -1077,12 +1081,48 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
-      nav { padding: 16px 24px; }
+      /* ナビ */
       .nav-links { display: none; }
-      section { padding: 70px 24px; }
-      .message-card { padding: 36px 28px; }
+      nav.top-nav { padding: 10px 12px; }
+      .nav-ext { gap: 8px; }
+      .nav-ext a, .nav-reserve > span { font-size: 0.65rem; }
+      .nav-reserve-drop { right: 0; left: auto; min-width: 120px; }
+      .nav-reserve-drop a img { width: 36px; height: 36px; }
+
+      /* セクション共通 */
+      section { padding: 60px 20px; }
+      .section-title { font-size: 1.4rem; }
+      .section-label { font-size: 0.6rem; letter-spacing: 0.3em; }
+
+      /* メッセージ */
+      .message-card { padding: 28px 20px; }
+      .message-body { font-size: 0.82rem; line-height: 2.2; }
       .hero-line-left, .hero-line-right { display: none; }
-      .special-banner { padding: 36px 24px; }
+
+      /* メニュー */
+      .menu-section { padding: 60px 16px; }
+      .menu-dish { padding: 12px 16px 10px; }
+      .menu-dish-name { font-size: 0.82rem; }
+      .menu-dish-price { font-size: 0.78rem; }
+
+      /* くじ引き */
+      .lottery-section { padding: 50px 20px; }
+      .lottery-btn { padding: 16px 40px; font-size: 0.85rem; }
+      .lottery-modal { padding: 36px 24px; margin: 16px; }
+      .modal-rank { font-size: 1.1rem; }
+      .modal-prize-name { font-size: 1.2rem; }
+
+      /* フッター */
+      footer { padding: 28px 20px 20px; }
+      .footer-info-item { font-size: 0.72rem; }
+      .footer-copy { font-size: 0.68rem; }
+
+      /* タブ */
+      .tab-btn { font-size: 0.72rem; padding: 10px 14px; letter-spacing: 0.1em; }
+
+      /* ワインテーブル */
+      .wine-table { font-size: 0.78rem; }
+      .wine-table th, .wine-table td { padding: 8px 10px; }
     }
   </style>
   <!-- ===== Firebase compat SDK ===== -->
@@ -1133,11 +1173,11 @@
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </span>
         <div class="nav-reserve-drop">
-          <a href="https://tabelog.com" target="_blank" rel="noopener">
+          <a href="https://tabelog.com/kyoto/A2601/A260201/26039436/" target="_blank" rel="noopener">
             <img src="tabelog.jpg" alt="食べログ" />
             <span>食べログ</span>
           </a>
-          <a href="https://hotpepper.jp" target="_blank" rel="noopener">
+          <a href="https://www.hotpepper.jp/strJ004509035/" target="_blank" rel="noopener">
             <img src="hotp.jpg" alt="ホットペッパー" />
             <span>ホットペッパー</span>
           </a>
@@ -1829,6 +1869,19 @@
         wrap.appendChild(el);
         setTimeout(() => el.remove(), 3500);
       }
+    }
+
+    /* ===== モバイル: ご予約ドロップダウン タップ制御 ===== */
+    const reserveBtn = document.querySelector('.nav-reserve > span');
+    const reserveDrop = document.querySelector('.nav-reserve-drop');
+    if (reserveBtn && reserveDrop) {
+      reserveBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        reserveDrop.classList.toggle('open');
+      });
+      document.addEventListener('click', () => {
+        reserveDrop.classList.remove('open');
+      });
     }
 
     function switchTab(e, panelId) {
