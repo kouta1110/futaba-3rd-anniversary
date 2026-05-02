@@ -278,7 +278,7 @@
 
     /* ===== SECTION COMMON ===== */
     section {
-      padding: 100px 40px;
+      padding: clamp(50px, 8vw, 100px) clamp(16px, 5vw, 40px);
       max-width: 960px;
       margin: 0 auto;
     }
@@ -331,17 +331,19 @@
     .message-section {
       background: rgba(255,255,255,0.75);
       max-width: 100%;
-      padding: 100px 40px;
+      padding: clamp(50px, 8vw, 100px) clamp(16px, 5vw, 40px);
     }
     .message-inner {
-      max-width: 760px;
+      max-width: min(760px, 100%);
       margin: 0 auto;
     }
 
     .message-card {
+      --card-pt: clamp(28px, 5vw, 60px);
+      --card-px: clamp(20px, 5vw, 56px);
       background: rgba(255,255,255,0.85);
       border: 1px solid rgba(123,45,58,0.2);
-      padding: 60px 56px;
+      padding: var(--card-pt) var(--card-px);
       position: relative;
     }
 
@@ -377,11 +379,11 @@
       border-style: solid;
     }
     .message-card-inner::before {
-      top: -61px; right: -57px;
+      top: calc(-1px - var(--card-pt)); right: calc(-1px - var(--card-px));
       border-width: 2px 2px 0 0;
     }
     .message-card-inner::after {
-      bottom: -61px; left: -57px;
+      bottom: calc(-1px - var(--card-pt)); left: calc(-1px - var(--card-px));
       border-width: 0 0 2px 2px;
     }
 
@@ -426,7 +428,7 @@
 
     /* ===== MENU SECTION ===== */
     .menu-section {
-      padding: 100px 40px;
+      padding: clamp(50px, 8vw, 100px) clamp(16px, 5vw, 40px);
       max-width: 100%;
       background-image: url('bg2.jpg');
       background-size: cover;
@@ -437,7 +439,7 @@
     .menu-section > * {
       position: relative;
       z-index: 1;
-      max-width: 560px;
+      max-width: min(560px, 100%);
       margin-left: auto;
       margin-right: auto;
     }
@@ -480,14 +482,14 @@
     }
 
     .menu-dish {
-      padding: 16px 24px 14px;
+      padding: clamp(10px, 2vw, 16px) clamp(12px, 4vw, 24px);
       border-bottom: 1px dashed rgba(123,45,58,0.1);
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 16px;
+      gap: 8px;
       transition: background 0.2s;
-      max-width: 560px;
+      max-width: min(560px, 100%);
     }
     .menu-dish:last-child { border-bottom: none; }
     .menu-dish:hover { background: rgba(123,45,58,0.04); }
@@ -540,10 +542,10 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 14px 32px;
+      padding: clamp(10px, 2vw, 14px) clamp(14px, 4vw, 32px);
       font-family: 'Klee One', 'Zen Old Mincho', serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.3em;
+      font-size: clamp(0.78rem, 2.2vw, 0.95rem);
+      letter-spacing: 0.2em;
       color: rgba(26,20,16,0.4);
       position: relative;
       transition: color 0.3s;
@@ -692,7 +694,7 @@
 
     /* ===== LOTTERY / くじ引き ===== */
     .lottery-section {
-      padding: 60px 40px;
+      padding: clamp(36px, 6vw, 60px) clamp(16px, 5vw, 40px);
       max-width: 100%;
       background-image: url('bg.jpg');
       background-size: cover;
@@ -712,7 +714,7 @@
       z-index: 1;
     }
     .lottery-inner {
-      max-width: 480px;
+      max-width: min(480px, 100%);
       margin: 0 auto;
       text-align: center;
     }
@@ -853,10 +855,10 @@
     .lottery-modal {
       background: var(--dark-light);
       border: 1px solid rgba(123,45,58,0.3);
-      padding: 56px 48px 48px;
+      padding: 36px 32px 32px;
       text-align: center;
-      max-width: 420px;
-      width: 90%;
+      max-width: 320px;
+      width: 88%;
       position: relative;
       transform: translateY(30px) scale(0.95);
       transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
@@ -884,7 +886,7 @@
     }
     .modal-prize-name {
       font-family: 'Klee One', 'Zen Old Mincho', serif;
-      font-size: 2rem;
+      font-size: 1.3rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       color: var(--cream);
@@ -899,11 +901,11 @@
     }
     .modal-prize-desc {
       font-family: 'Klee One', 'Shippori Mincho B1', serif;
-      font-size: 0.85rem;
-      line-height: 2;
+      font-size: 0.75rem;
+      line-height: 1.8;
       color: rgba(26,20,16,0.65);
-      letter-spacing: 0.1em;
-      margin-bottom: 32px;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
     }
     .modal-close-btn {
       background: none;
@@ -922,8 +924,8 @@
       color: var(--gold);
     }
     .modal-emoji {
-      font-size: 3rem;
-      margin-bottom: 16px;
+      font-size: 2rem;
+      margin-bottom: 10px;
       display: block;
     }
     /* 紙吹雪パーティクル */
@@ -986,7 +988,7 @@
       background-size: cover;
       background-position: center 40%;
       border-top: 1px solid rgba(123,45,58,0.15);
-      padding: 36px 40px 28px;
+      padding: clamp(24px, 4vw, 36px) clamp(16px, 5vw, 40px) clamp(18px, 3vw, 28px);
       text-align: center;
     }
     footer::before {
@@ -1089,36 +1091,27 @@
       .nav-reserve-drop { right: 0; left: auto; min-width: 120px; }
       .nav-reserve-drop a img { width: 36px; height: 36px; }
 
-      /* セクション共通 */
-      section { padding: 60px 20px; }
-      .section-title { font-size: 1.4rem; }
+      /* セクション */
+      .section-title { font-size: 1.3rem; }
       .section-label { font-size: 0.6rem; letter-spacing: 0.3em; }
-
-      /* メッセージ */
-      .message-card { padding: 28px 20px; }
-      .message-body { font-size: 0.82rem; line-height: 2.2; }
       .hero-line-left, .hero-line-right { display: none; }
 
+      /* メッセージ */
+      .message-text { font-size: 0.82rem; line-height: 2.2; }
+
       /* メニュー */
-      .menu-section { padding: 60px 16px; }
-      .menu-dish { padding: 12px 16px 10px; }
       .menu-dish-name { font-size: 0.82rem; }
       .menu-dish-price { font-size: 0.78rem; }
 
       /* くじ引き */
-      .lottery-section { padding: 50px 20px; }
-      .lottery-btn { padding: 16px 40px; font-size: 0.85rem; }
-      .lottery-modal { padding: 36px 24px; margin: 16px; }
-      .modal-rank { font-size: 1.1rem; }
-      .modal-prize-name { font-size: 1.2rem; }
+      .lottery-btn { padding: 14px 36px; font-size: 0.85rem; }
+      .lottery-modal { padding: 28px 20px; margin: 16px; width: calc(100% - 32px); }
+      .modal-rank { font-size: 1rem; }
+      .modal-prize-name { font-size: 1.1rem; }
 
       /* フッター */
-      footer { padding: 28px 20px 20px; }
-      .footer-info-item { font-size: 0.72rem; }
-      .footer-copy { font-size: 0.68rem; }
-
-      /* タブ */
-      .tab-btn { font-size: 0.72rem; padding: 10px 14px; letter-spacing: 0.1em; }
+      .footer-info-item { font-size: 0.7rem; }
+      .footer-copy { font-size: 0.65rem; }
 
       /* ワインテーブル */
       .wine-table { font-size: 0.78rem; }
@@ -1153,7 +1146,7 @@
         </a>
       </li>
       <li>
-        <a href="https://maps.app.goo.gl/weVDapzfgv6eKig59" target="_blank" rel="noopener">
+        <a href="https://maps.app.goo.gl/weVDapzfgv6eKig59" rel="noopener noreferrer">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
             <circle cx="12" cy="9" r="2.5"/>
@@ -1178,7 +1171,7 @@
             <span>食べログ</span>
           </a>
           <a href="https://www.hotpepper.jp/strJ004509035/" target="_blank" rel="noopener">
-            <img src="hotp.jpg" alt="ホットペッパー" />
+            <img src="https://www.google.com/s2/favicons?domain=hotpepper.jp&sz=64" alt="ホットペッパー" />
             <span>ホットペッパー</span>
           </a>
         </div>
@@ -1542,7 +1535,7 @@
   <footer>
     <div class="footer-info">
       <span class="footer-info-item">〒604-8024</span>
-      <a class="footer-info-item" href="https://maps.app.goo.gl/weVDapzfgv6eKig59" target="_blank" rel="noopener">
+      <a class="footer-info-item" href="https://maps.app.goo.gl/weVDapzfgv6eKig59" rel="noopener noreferrer">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
           <circle cx="12" cy="9" r="2.5"/>
