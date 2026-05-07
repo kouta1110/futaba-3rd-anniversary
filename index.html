@@ -1210,8 +1210,9 @@
 
     <!-- タブナビゲーション -->
     <div class="tab-nav fade-in">
-      <button class="tab-btn active" onclick="switchTab(event,'tab-anniversary')">メニュー</button>
-      <button class="tab-btn" onclick="switchTab(event,'tab-wine')">🍷 ワインリスト</button>
+      <button class="tab-btn active" onclick="switchTab(event,'tab-anniversary')">限定メニュー</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-drink')">ドリンク</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-wine')">ボトルワイン</button>
     </div>
 
     <!-- TAB 1: 周年特別メニュー -->
@@ -1302,15 +1303,64 @@
     <p class="menu-note">メニューは順次更新予定です。ご不明な点があればお気軽にスタッフに申し付けください。</p>
     </div><!-- /tab-anniversary -->
 
-    <!-- TAB 2: ワインリスト -->
+    <!-- TAB 2: ドリンク -->
+    <div class="tab-panel" id="tab-drink">
+      <div class="menu-sections">
+        <div class="menu-section-col fade-in">
+          <div class="menu-dish">
+            <span class="menu-dish-name">生ビール</span>
+            <span class="menu-dish-price">600円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">ハイボール</span>
+            <span class="menu-dish-price">600円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">レモンサワー</span>
+            <span class="menu-dish-price">600円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">ウーロンハイ</span>
+            <span class="menu-dish-price">600円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">ジャスミンハイ</span>
+            <span class="menu-dish-price">600円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">グラスワイン</span>
+            <span class="menu-dish-price">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /tab-drink -->
+
+    <!-- TAB 3: ボトルワイン -->
     <div class="tab-panel" id="tab-wine">
       <p class="wine-intro">
-        厳選した国内外のワインをご用意しております。<br>
-        お料理との相性をスタッフへお気軽にご相談ください。
+        3つの中からお選びいただいたらスタッフがお持ちします。<br>
+        お好みあればお申し付けください。
       </p>
+      <div class="menu-sections">
+        <div class="menu-section-col fade-in">
+          <div class="menu-dish">
+            <span class="menu-dish-name">松</span>
+            <span class="menu-dish-price">15,000円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">竹</span>
+            <span class="menu-dish-price">10,000円</span>
+          </div>
+          <div class="menu-dish">
+            <span class="menu-dish-name">梅</span>
+            <span class="menu-dish-price">6,000円</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /tab-wine (旧ワインリストは削除) -->
 
-      <!-- 赤ワイン -->
-      <div class="wine-section-title"><span>🍷 赤ワイン　Red Wine</span></div>
+    <!-- 旧ワインリスト(削除用プレースホルダー) -->
+    <div style="display:none" id="tab-wine-old">
       <table class="wine-table">
         <thead>
           <tr>
@@ -1444,8 +1494,7 @@
         </tbody>
       </table>
 
-      <p class="wine-note-text">※ 表示価格は税込みです　／　ヴィンテージは入荷状況により変更になる場合があります</p>
-    </div><!-- /tab-wine -->
+    </div><!-- /tab-wine-old -->
 
   </section>
 
@@ -1531,7 +1580,7 @@
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
           <circle cx="12" cy="9" r="2.5"/>
         </svg>
-        京都府京都市中京区紙屋町西木屋町通四条上る橋本町373番地
+        <span style="font-size:0.62rem;white-space:nowrap;">京都府京都市中京区紙屋町西木屋町通四条上る橋本町373番地</span>
       </a>
       <a class="footer-info-item" href="tel:0755854550">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
