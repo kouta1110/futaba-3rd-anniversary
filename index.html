@@ -1796,16 +1796,11 @@
         showEndedState(); return;
       }
 
-      // ② すでに引いた（ローカルストレージ優先）
+      // ② すでに引いた（ローカルストレージで管理）
       const lsKey = 'futaba_lottery_' + uid;
       const lsData = localStorage.getItem(lsKey);
       if (lsData) {
         const d = JSON.parse(lsData);
-        showAlreadyResult(d.prizeName, d.ticketNo); return;
-      }
-      if (userSnap.exists && userSnap.data().drawnAt) {
-        const d = userSnap.data();
-        localStorage.setItem(lsKey, JSON.stringify(d));
         showAlreadyResult(d.prizeName, d.ticketNo); return;
       }
 
@@ -1853,10 +1848,7 @@
             tx.get(userRef)
           ]);
 
-          // 既に引いた
-          if (userSnap.exists && userSnap.data().drawnAt) {
-            throw { code: 'already-drawn', data: userSnap.data() };
-          }
+          // 既に引いた（ローカルストレージで管理するためFirestoreチェックはスキップ）
 
           const config = configSnap.data();
 
