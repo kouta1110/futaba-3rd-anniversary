@@ -1796,9 +1796,16 @@
         showEndedState(); return;
       }
 
-      // ② すでに引いた
-      if (userSnap.exists) {
+      // ② すでに引いた（ローカルストレージ優先）
+      const lsKey = 'futaba_lottery_' + uid;
+      const lsData = localStorage.getItem(lsKey);
+      if (lsData) {
+        const d = JSON.parse(lsData);
+        showAlreadyResult(d.prizeName, d.ticketNo); return;
+      }
+      if (userSnap.exists && userSnap.data().drawnAt) {
         const d = userSnap.data();
+        localStorage.setItem(lsKey, JSON.stringify(d));
         showAlreadyResult(d.prizeName, d.ticketNo); return;
       }
 
@@ -1847,7 +1854,7 @@
           ]);
 
           // 既に引いた
-          if (userSnap.exists) {
+          if (userSnap.exists && userSnap.data().drawnAt) {
             throw { code: 'already-drawn', data: userSnap.data() };
           }
 
@@ -1901,6 +1908,9 @@
 
           return { tier, rank: meta.rank, prizeName, prizeDesc, grand: meta.grand, ticketNo };
         });
+
+        // ローカルストレージに保存
+        localStorage.setItem('futaba_lottery_' + uid, JSON.stringify(result));
 
         // アニメーション終了後にモーダルを表示
         setTimeout(() => {
