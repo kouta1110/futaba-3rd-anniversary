@@ -949,6 +949,76 @@
       100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
     }
 
+    /* 大当たり写真 */
+    #modalPhotoWrap {
+      display: none;
+      margin: -36px -32px 20px;
+      overflow: hidden;
+      border-radius: 0;
+    }
+    #modalPhoto {
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    /* お祝いテキスト */
+    .modal-celebration {
+      display: none;
+      font-family: 'Klee One', 'Zen Old Mincho', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .modal-ticket-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      letter-spacing: 0.4em;
+      color: rgba(123,45,58,0.4);
+      margin-bottom: 12px;
+    }
+    /* 大当たり */
+    #lotteryModalInner.bigHit {
+      max-width: 380px;
+      border-color: var(--gold);
+      background: linear-gradient(160deg, #1a0f08 0%, var(--dark-light) 55%);
+      box-shadow: 0 0 80px rgba(201,168,76,0.35), 0 0 20px rgba(201,168,76,0.2);
+    }
+    #lotteryModalInner.bigHit #modalPhotoWrap { display: block; }
+    #lotteryModalInner.bigHit .modal-celebration { display: block; }
+    #lotteryModalInner.bigHit .modal-rank {
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.5em;
+    }
+    #lotteryModalInner.bigHit .modal-prize-name {
+      font-size: 1.5rem;
+    }
+    /* あたり */
+    #lotteryModalInner.hit .modal-celebration { display: block; }
+    #lotteryModalInner.hit .modal-emoji { display: none; }
+    /* ハズレ */
+    #lotteryModalInner.miss .modal-emoji { display: none; }
+    #lotteryModalInner.miss .modal-celebration { display: none; }
+    #lotteryModalInner.miss .modal-prize-name {
+      font-size: 1rem;
+      white-space: nowrap;
+      letter-spacing: 0.1em;
+    }
+    #lotteryModalInner.miss .modal-rank {
+      color: rgba(26,20,16,0.4);
+    }
+    /* 大当たりアニメ */
+    @keyframes goldPulse {
+      0%, 100% { box-shadow: 0 0 80px rgba(201,168,76,0.35); }
+      50%       { box-shadow: 0 0 120px rgba(201,168,76,0.6), 0 0 40px rgba(201,168,76,0.4); }
+    }
+    #lotteryModalInner.bigHit { animation: goldPulse 1.8s ease-in-out infinite; }
+
     /* 既に引いた場合 */
     .lottery-already {
       display: none;
@@ -1565,13 +1635,17 @@
 
   <!-- くじ結果モーダル -->
   <div class="lottery-modal-bg" id="lotteryModal">
-    <div class="lottery-modal">
-      <p style="font-family:'Cormorant Garamond',serif; font-size:0.7rem; font-style:italic; letter-spacing:0.4em; color:rgba(123,45,58,0.4); margin-bottom:12px;" id="modalTicketNo"></p>
-      <span class="modal-emoji" id="modalEmoji">🎉</span>
-      <p class="modal-rank" id="modalRank">一等</p>
-      <p class="modal-prize-name" id="modalPrizeName">―</p>
-      <p class="modal-prize-desc" id="modalPrizeDesc">―</p>
-      <button class="modal-close-btn" onclick="closeModal()">閉じる</button>
+    <div class="lottery-modal" id="lotteryModalInner">
+      <!-- 大当たり写真 -->
+      <div id="modalPhotoWrap"><img src="jackpot.jpg" alt="大当たり！" id="modalPhoto"></div>
+      <!-- お祝いテキスト -->
+      <p class="modal-celebration" id="modalCelebration">おめでとうございます！！</p>
+      <p class="modal-ticket-no" id="modalTicketNo"></p>
+      <span class="modal-emoji" id="modalEmoji"></span>
+      <p class="modal-rank" id="modalRank"></p>
+      <p class="modal-prize-name" id="modalPrizeName"></p>
+      <p class="modal-prize-desc" id="modalPrizeDesc"></p>
+      <button class="modal-close-btn" id="modalCloseBtn" onclick="closeModal()">当選結果を確認</button>
     </div>
   </div>
 
@@ -1667,26 +1741,51 @@
     // 賞品定義（仮設定 — 正式景品が決まったら name / desc を変更）
     // bigHit = 大当たり(5枚) / hit = 当たり(10枚) / miss = ハズレ(185枚)
     // ============================================================
-    const prizes = {
-      bigHit: {
-        rank: '大当たり', emoji: '🏆',
-        name: '景品名（後日確定）',
-        desc: '詳細はスタッフへご確認ください。\nスタッフにこの画面をご提示ください。',
-        grand: true
-      },
-      hit: {
-        rank: '当たり', emoji: '🎉',
-        name: '景品名（後日確定）',
-        desc: '詳細はスタッフへご確認ください。\nスタッフにこの画面をご提示ください。',
-        grand: false
-      },
-      miss: {
-        rank: 'ハズレ', emoji: '🌿',
-        name: 'またのご来店を\nお待ちしております',
-        desc: 'ご参加ありがとうございました。\n次回もぜひお気軽にお越しください。',
-        grand: false
-      },
+    // ────────────────────────────────────────
+    // 賞品プール定義
+    // Firestoreのconfig内に同名フィールドで残数を管理
+    // ────────────────────────────────────────
+    const hitPrizePool = [
+      { key: 'hit_1000off',      name: '双葉 1,000円OFF',                    qty: 10 },
+      { key: 'hit_3000off',      name: '双葉 3,000円OFF',                    qty: 3  },
+      { key: 'hit_glass',        name: '双葉グラス',                          qty: 3  },
+      { key: 'hit_wine',         name: 'ワインボトル券',                      qty: 3  },
+      { key: 'hit_tshirt',       name: '周年Tシャツ',                         qty: 1  },
+      { key: 'hit_stout',        name: 'スタウト',                            qty: 4  },
+      { key: 'hit_sweets',       name: 'いつものお菓子',                       qty: 10 },
+      { key: 'hit_antique',      name: '古いグラス（antique lunettesより）',   qty: 4  },
+      { key: 'hit_drip',         name: 'ドリップバッグ 5個入り',               qty: 3  },
+      { key: 'hit_tenugui',      name: '手ぬぐい',                            qty: 2  },
+      { key: 'hit_coffee',       name: '珈琲豆 100g',                         qty: 3  },
+      { key: 'hit_coffeecoupon', name: '珈琲券 5枚',                          qty: 2  },
+      { key: 'hit_coffeestout',  name: '珈琲スタウト',                         qty: 4  },
+    ]; // 合計 52本
+
+    const bigHitPrizePool = [
+      { key: 'bh_tshirt', name: '周年Tシャツ', qty: 1 },
+      { key: 'bh_agave',  name: 'アガベ',       qty: 1 },
+    ]; // 合計 2本
+
+    const tierMeta = {
+      bigHit: { rank: '大当たり', grand: true },
+      hit:    { rank: '当たり',   grand: false },
+      miss:   { rank: 'ハズレ',   grand: false,
+                name: 'またのご来店をお待ちしております',
+                desc: 'スタッフにこの画面をご提示ください。' },
     };
+
+    // プール内から残数加重ランダムで選ぶ
+    function pickPrizeFromPool(pool, config) {
+      const available = pool.filter(p => (config[p.key] || 0) > 0);
+      if (!available.length) return pool[0];
+      const total = available.reduce((s, p) => s + (config[p.key] || 0), 0);
+      let r = Math.random() * total;
+      for (const p of available) {
+        r -= config[p.key] || 0;
+        if (r <= 0) return p;
+      }
+      return available[available.length - 1];
+    }
 
     // ============================================================
     // ページ読み込み時 — 匿名ログイン → 状態チェック
@@ -1806,15 +1905,24 @@
                                                        tier = 'hit';
           else                                         tier = 'miss';
 
-          const prize    = prizes[tier];
+          const meta     = tierMeta[tier];
           const ticketNo = 201 - config.remaining; // 1〜200の連番
+
+          // 当たり系は個別賞品を選ぶ
+          let chosenPrize = null;
+          if (tier === 'hit')    chosenPrize = pickPrizeFromPool(hitPrizePool,    config);
+          if (tier === 'bigHit') chosenPrize = pickPrizeFromPool(bigHitPrizePool, config);
+
+          const prizeName = tier === 'miss' ? meta.name : chosenPrize.name;
+          const prizeDesc = 'スタッフにこの画面をご提示ください。';
 
           // Firestoreを更新
           const newRemaining = config.remaining - 1;
           const configUpdate = {
-            remaining:               newRemaining,
-            [`${tier}Remaining`]:    config[`${tier}Remaining`] - 1,
+            remaining:            newRemaining,
+            [`${tier}Remaining`]: config[`${tier}Remaining`] - 1,
           };
+          if (chosenPrize) configUpdate[chosenPrize.key] = (config[chosenPrize.key] || 0) - 1;
           if (newRemaining <= 0) configUpdate.isEnded = true;
           tx.update(configRef, configUpdate);
 
@@ -1822,15 +1930,14 @@
           tx.set(userRef, {
             ticketNo,
             tier,
-            rank:      prize.rank,
-            prizeName: prize.name,
-            prizeDesc: prize.desc,
-            emoji:     prize.emoji,
-            grand:     prize.grand,
+            rank:      meta.rank,
+            prizeName,
+            prizeDesc,
+            grand:     meta.grand,
             drawnAt:   firebase.firestore.FieldValue.serverTimestamp()
           });
 
-          return { prize, ticketNo };
+          return { tier, rank: meta.rank, prizeName, prizeDesc, grand: meta.grand, ticketNo };
         });
 
         // アニメーション終了後にモーダルを表示
@@ -1838,8 +1945,9 @@
           tube.classList.remove('shaking');
           const cur = parseInt(document.getElementById('lotteryCounter').textContent);
           updateCounterUI(cur - 1);
-          showModal(result.prize, result.ticketNo);
-          if (result.prize.grand || result.prize.tier === 'hit') launchConfetti();
+          showModal(result);
+          if (result.tier === 'bigHit') launchBigConfetti();
+          else if (result.tier === 'hit') launchConfetti();
         }, 700);
 
       } catch (e) {
@@ -1867,24 +1975,25 @@
       if (noEl && ticketNo) noEl.textContent = ticketNo + '番';
     }
 
-    function showModal(prize, ticketNo) {
-      document.getElementById('modalEmoji').textContent = prize.emoji;
-      document.getElementById('modalRank').textContent = prize.rank;
+    function showModal(result) {
+      const inner = document.getElementById('lotteryModalInner');
+      // クラスリセット
+      inner.classList.remove('miss', 'hit', 'bigHit');
+      inner.classList.add(result.tier);
+
+      document.getElementById('modalRank').textContent = result.rank;
       const nameEl = document.getElementById('modalPrizeName');
-      nameEl.textContent = prize.name;
-      nameEl.style.whiteSpace = 'pre-line';
-      nameEl.className = 'modal-prize-name' + (prize.grand ? ' grand' : '');
+      nameEl.textContent = result.prizeName;
+      nameEl.className = 'modal-prize-name' + (result.grand ? ' grand' : '');
       const descEl = document.getElementById('modalPrizeDesc');
-      descEl.textContent = prize.desc;
-      descEl.style.whiteSpace = 'pre-line';
+      descEl.textContent = result.tier === 'miss' ? '' : result.prizeDesc;
       const ticketEl = document.getElementById('modalTicketNo');
-      if (ticketEl) ticketEl.textContent = 'No.' + String(ticketNo).padStart(3, '0');
+      if (ticketEl) ticketEl.textContent = 'No.' + String(result.ticketNo).padStart(3, '0');
       document.getElementById('lotteryModal').classList.add('show');
     }
 
     async function closeModal() {
       document.getElementById('lotteryModal').classList.remove('show');
-      // モーダルを閉じた後、Firestoreから結果を取得して「引き済み」表示に切り替える
       const uid = auth.currentUser?.uid;
       if (!uid) return;
       const userSnap = await db.collection('users').doc(uid).get();
@@ -1894,6 +2003,7 @@
       }
     }
 
+    // あたり用（紙吹雪 80枚）
     function launchConfetti() {
       const wrap = document.getElementById('confettiWrap');
       wrap.innerHTML = '';
@@ -1909,6 +2019,33 @@
         wrap.appendChild(el);
         setTimeout(() => el.remove(), 3500);
       }
+    }
+
+    // 大当たり用（豪華版：200枚・複数ウェーブ）
+    function launchBigConfetti() {
+      const wrap = document.getElementById('confettiWrap');
+      wrap.innerHTML = '';
+      const colors = ['#c9a84c','#e8c97a','#f5d675','#ffffff','#8b2020','#c84040','#f5efe6','#4a7c59','#ffd700'];
+      const launch = (count, delay) => {
+        setTimeout(() => {
+          for (let i = 0; i < count; i++) {
+            const el = document.createElement('div');
+            el.className = 'confetti-piece';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            el.style.width  = (6 + Math.random() * 8) + 'px';
+            el.style.height = (10 + Math.random() * 16) + 'px';
+            el.style.animationDuration = (1.5 + Math.random() * 2.5) + 's';
+            el.style.animationDelay = (Math.random() * 0.4) + 's';
+            el.style.transform = `rotate(${Math.random() * 360}deg)`;
+            wrap.appendChild(el);
+            setTimeout(() => el.remove(), 4500);
+          }
+        }, delay);
+      };
+      launch(120, 0);
+      launch(100, 600);
+      launch(80,  1200);
     }
 
     /* ===== モバイル: ご予約ドロップダウン タップ制御 ===== */
