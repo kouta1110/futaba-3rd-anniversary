@@ -347,44 +347,8 @@
       position: relative;
     }
 
-    /* 角飾り */
-    .message-card::before,
-    .message-card::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-color: var(--gold);
-      border-style: solid;
-    }
-    .message-card::before {
-      top: -1px; left: -1px;
-      border-width: 2px 0 0 2px;
-    }
-    .message-card::after {
-      bottom: -1px; right: -1px;
-      border-width: 0 2px 2px 0;
-    }
-
     .message-card-inner {
       position: relative;
-    }
-    .message-card-inner::before,
-    .message-card-inner::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-color: var(--gold);
-      border-style: solid;
-    }
-    .message-card-inner::before {
-      top: calc(-1px - var(--card-pt)); right: calc(-1px - var(--card-px));
-      border-width: 2px 2px 0 0;
-    }
-    .message-card-inner::after {
-      bottom: calc(-1px - var(--card-pt)); left: calc(-1px - var(--card-px));
-      border-width: 0 0 2px 2px;
     }
 
     .message-quote {
@@ -1261,7 +1225,7 @@
   <div class="message-section" id="message">
     <div class="message-inner">
       <p class="section-label fade-in">Message</p>
-      <h2 class="section-title fade-in">オーナーより</h2>
+      <h2 class="section-title fade-in">しんちゃんより</h2>
       <div class="section-divider fade-in"><span>◆</span></div>
 
       <div class="message-card fade-in">
@@ -1275,7 +1239,7 @@
   <!-- MENU SECTION -->
   <section class="menu-section" id="menu">
     <p class="section-label fade-in">Our Menu</p>
-    <h2 class="section-title fade-in">お品書き</h2>
+    <h2 class="section-title fade-in">Menu</h2>
     <div class="section-divider fade-in"><span>◆</span></div>
 
     <!-- タブナビゲーション -->
@@ -1299,7 +1263,7 @@
           <span class="menu-dish-price">2,000円</span>
         </div>
         <div class="menu-dish">
-          <span class="menu-dish-name">黒唐揚げ</span>
+          <span class="menu-dish-name">黒い唐揚げ</span>
           <span class="menu-dish-price">800円</span>
         </div>
         <div class="menu-dish">
@@ -1307,7 +1271,7 @@
           <span class="menu-dish-price">1,000円</span>
         </div>
         <div class="menu-dish">
-          <span class="menu-dish-name">春焼売</span>
+          <span class="menu-dish-name">大葉の春焼売（こうた特製、たけのこ、キクラゲ入り）</span>
           <span class="menu-dish-price">600円</span>
         </div>
       </div>
@@ -1339,25 +1303,6 @@
         </div>
       </div>
 
-      <!-- ANNIE HALLBAR -->
-      <div class="menu-section-col fade-in">
-        <div class="menu-section-head">
-          <p class="menu-section-name">ANNIE HALLBAR</p>
-        </div>
-        <div class="menu-dish">
-          <span class="menu-dish-name">Sarpis</span>
-          <span class="menu-dish-price">1,000円</span>
-        </div>
-        <div class="menu-dish">
-          <span class="menu-dish-name">I potate you</span>
-          <span class="menu-dish-price">1,000円</span>
-        </div>
-        <div class="menu-dish">
-          <span class="menu-dish-name">Cough Drop</span>
-          <span class="menu-dish-price">500円</span>
-        </div>
-      </div>
-
       <!-- ときや -->
       <div class="menu-section-col fade-in">
         <div class="menu-section-head">
@@ -1374,6 +1319,25 @@
         <div class="menu-dish">
           <span class="menu-dish-name">四万十ポークのハム</span>
           <span class="menu-dish-price">1,000円</span>
+        </div>
+      </div>
+
+      <!-- ANNIE HALLBAR -->
+      <div class="menu-section-col fade-in">
+        <div class="menu-section-head">
+          <p class="menu-section-name">ANNIE HALLBAR</p>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name">Sarpis</span>
+          <span class="menu-dish-price">1,000円</span>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name">I potate you</span>
+          <span class="menu-dish-price">1,000円</span>
+        </div>
+        <div class="menu-dish">
+          <span class="menu-dish-name">Cough Drop</span>
+          <span class="menu-dish-price">500円</span>
         </div>
       </div>
 
