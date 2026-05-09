@@ -1741,7 +1741,8 @@
     // プール内から残数加重ランダムで選ぶ
     function pickPrizeFromPool(pool, config) {
       const available = pool.filter(p => (config[p.key] || 0) > 0);
-      if (!available.length) return pool[0];
+      // Bug5修正: 賞品が全て尽きている場合はエラー（負の値を書かせない）
+      if (!available.length) throw { code: 'no-prize' };
       const total = available.reduce((s, p) => s + (config[p.key] || 0), 0);
       let r = Math.random() * total;
       for (const p of available) {
@@ -1803,8 +1804,13 @@
       const lsKey = 'futaba_lottery_' + uid + '_r' + round;
       const lsData = localStorage.getItem(lsKey);
       if (lsData) {
-        const d = JSON.parse(lsData);
-        showAlreadyResult(d.prizeName, d.ticketNo); return;
+        try {
+          // Bug4修正: JSON.parseのクラッシュを防ぐ
+          const d = JSON.parse(lsData);
+          showAlreadyResult(d.prizeName, d.ticketNo); return;
+        } catch (e) {
+          localStorage.removeItem(lsKey); // 壊れたデータは削除して引き直し可能に
+        }
       }
 
       // ③ 通常：ボタンを有効化
@@ -1882,10 +1888,11 @@
 
           // Firestoreを更新
           const newRemaining = config.remaining - 1;
-          const configUpdate = {
-            remaining:            newRemaining,
-            [`${tier}Remaining`]: config[`${tier}Remaining`] - 1,
-          };
+          const configUpdate = { remaining: newRemaining };
+          // Bug1修正: missにはtierRemainingフィールドが存在しないのでスキップ
+          if (tier !== 'miss') {
+            configUpdate[`${tier}Remaining`] = config[`${tier}Remaining`] - 1;
+          }
           if (chosenPrize) configUpdate[chosenPrize.key] = (config[chosenPrize.key] || 0) - 1;
           if (newRemaining <= 0) configUpdate.isEnded = true;
           tx.update(configRef, configUpdate);
@@ -1901,13 +1908,13 @@
             drawnAt:   firebase.firestore.FieldValue.serverTimestamp()
           });
 
-          return { tier, rank: meta.rank, prizeName, prizeDesc, grand: meta.grand, ticketNo };
+          // Bug2修正: roundをここで取得してreturnに含める
+          const round = config.round ?? 1;
+          return { tier, rank: meta.rank, prizeName, prizeDesc, grand: meta.grand, ticketNo, round };
         });
 
-        // ローカルストレージに保存（roundキー付き）
-        const cfgSnap2 = await db.collection('lottery').doc('config').get();
-        const round2 = cfgSnap2.data()?.round ?? 1;
-        localStorage.setItem('futaba_lottery_' + uid + '_r' + round2, JSON.stringify(result));
+        // ローカルストレージに保存（Bug2修正: トランザクション内のroundを使用）
+        localStorage.setItem('futaba_lottery_' + uid + '_r' + result.round, JSON.stringify(result));
 
         // アニメーション終了後にモーダルを表示
         setTimeout(() => {
@@ -1921,9 +1928,11 @@
 
       } catch (e) {
         tube.classList.remove('shaking');
-        if (e.code === 'already-drawn') {
-          showAlreadyResult(e.data.prizeName, e.data.ticketNo);
-        } else if (e.code === 'ended') {
+        if (e.code === 'ended') {
+          showEndedState();
+        } else if (e.code === 'no-prize') {
+          // Bug5: 賞品プールが空（データ不整合）→ 終了扱いに
+          console.warn('賞品プールが枯渇しています');
           showEndedState();
         } else {
           console.error('くじ引きエラー:', e);
@@ -1965,10 +1974,16 @@
       document.getElementById('lotteryModal').classList.remove('show');
       const uid = auth.currentUser?.uid;
       if (!uid) return;
-      const userSnap = await db.collection('users').doc(uid).get();
-      if (userSnap.exists) {
-        const d = userSnap.data();
-        showAlreadyResult(d.prizeName, d.ticketNo);
+      // Bug3修正: ローカルストレージから結果を取得（Firestoreではなく）
+      const configSnap = await db.collection('lottery').doc('config').get();
+      const round = configSnap.data()?.round ?? 1;
+      const lsKey = 'futaba_lottery_' + uid + '_r' + round;
+      const lsData = localStorage.getItem(lsKey);
+      if (lsData) {
+        try {
+          const d = JSON.parse(lsData);
+          showAlreadyResult(d.prizeName, d.ticketNo);
+        } catch (e) { /* パースエラーは無視 */ }
       }
     }
 
