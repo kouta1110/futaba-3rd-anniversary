@@ -1796,8 +1796,9 @@
         showEndedState(); return;
       }
 
-      // ② すでに引いた（ローカルストレージで管理）
-      const lsKey = 'futaba_lottery_' + uid;
+      // ② すでに引いた（ローカルストレージで管理 / roundでリセット可能）
+      const round = config.round ?? 1;
+      const lsKey = 'futaba_lottery_' + uid + '_r' + round;
       const lsData = localStorage.getItem(lsKey);
       if (lsData) {
         const d = JSON.parse(lsData);
@@ -1901,8 +1902,10 @@
           return { tier, rank: meta.rank, prizeName, prizeDesc, grand: meta.grand, ticketNo };
         });
 
-        // ローカルストレージに保存
-        localStorage.setItem('futaba_lottery_' + uid, JSON.stringify(result));
+        // ローカルストレージに保存（roundキー付き）
+        const cfgSnap2 = await db.collection('lottery').doc('config').get();
+        const round2 = cfgSnap2.data()?.round ?? 1;
+        localStorage.setItem('futaba_lottery_' + uid + '_r' + round2, JSON.stringify(result));
 
         // アニメーション終了後にモーダルを表示
         setTimeout(() => {
