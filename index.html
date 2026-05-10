@@ -1850,14 +1850,9 @@
         const configRef = db.collection('lottery').doc('config');
         const userRef   = db.collection('users').doc(uid);
 
-        // トランザクション: 残数チェック→抽選→結果保存 を一括処理
+        // トランザクション: 残数チェック→抽選→config更新のみ（userドキュメントはlocalStorageで管理）
         const result = await db.runTransaction(async (tx) => {
-          const [configSnap, userSnap] = await Promise.all([
-            tx.get(configRef),
-            tx.get(userRef)
-          ]);
-
-          // 既に引いた（ローカルストレージで管理するためFirestoreチェックはスキップ）
+          const configSnap = await tx.get(configRef);
 
           const config = configSnap.data();
 
@@ -1869,11 +1864,9 @@
           // 重み付き抽選（残数に応じて確率が変動）
           const r = Math.random() * config.remaining;
           let tier;
-          if      (r < config.bigHitRemaining)
-                                                       tier = 'bigHit';
-          else if (r < config.bigHitRemaining + config.hitRemaining)
-                                                       tier = 'hit';
-          else                                         tier = 'miss';
+          if      (r < config.bigHitRemaining)                              tier = 'bigHit';
+          else if (r < config.bigHitRemaining + config.hitRemaining)        tier = 'hit';
+          else                                                               tier = 'miss';
 
           const meta     = tierMeta[tier];
           const ticketNo = 201 - config.remaining; // 1〜200の連番
@@ -1886,10 +1879,9 @@
           const prizeName = tier === 'miss' ? meta.name : chosenPrize.name;
           const prizeDesc = 'スタッフにこの画面をご提示ください。';
 
-          // Firestoreを更新
+          // lottery/config のみ更新（userドキュメント書き込みはルール違反のため除外）
           const newRemaining = config.remaining - 1;
           const configUpdate = { remaining: newRemaining };
-          // Bug1修正: missにはtierRemainingフィールドが存在しないのでスキップ
           if (tier !== 'miss') {
             configUpdate[`${tier}Remaining`] = config[`${tier}Remaining`] - 1;
           }
@@ -1897,18 +1889,6 @@
           if (newRemaining <= 0) configUpdate.isEnded = true;
           tx.update(configRef, configUpdate);
 
-          // ユーザー結果を保存（二重引き防止）
-          tx.set(userRef, {
-            ticketNo,
-            tier,
-            rank:      meta.rank,
-            prizeName,
-            prizeDesc,
-            grand:     meta.grand,
-            drawnAt:   firebase.firestore.FieldValue.serverTimestamp()
-          });
-
-          // Bug2修正: roundをここで取得してreturnに含める
           const round = config.round ?? 1;
           return { tier, rank: meta.rank, prizeName, prizeDesc, grand: meta.grand, ticketNo, round };
         });
