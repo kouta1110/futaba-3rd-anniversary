@@ -1778,16 +1778,13 @@
       if (!uid) return;
 
       const configRef = db.collection('lottery').doc('config');
-      const userRef   = db.collection('users').doc(uid);
-
-      const [configSnap, userSnap] = await Promise.all([
-        configRef.get(),
-        userRef.get()
-      ]);
+      const configSnap = await configRef.get();
 
       // lottery/config がまだなければ警告
       if (!configSnap.exists) {
         console.warn('lottery/config が存在しません。Firebaseコンソールで初期化してください。');
+        const btn = document.getElementById('lotteryBtn');
+        if (btn) { btn.disabled = true; btn.textContent = '準備中'; }
         return;
       }
 
@@ -1848,12 +1845,12 @@
 
       try {
         const configRef = db.collection('lottery').doc('config');
-        const userRef   = db.collection('users').doc(uid);
 
         // トランザクション: 残数チェック→抽選→config更新のみ（userドキュメントはlocalStorageで管理）
         const result = await db.runTransaction(async (tx) => {
           const configSnap = await tx.get(configRef);
 
+          if (!configSnap.exists) throw { code: 'ended' };
           const config = configSnap.data();
 
           // 終了済み
